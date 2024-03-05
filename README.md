@@ -1,2 +1,6 @@
 # gierka_z_baza
-nie wiem jeszcze
+skład:
+Filip Borek
+Jan Góral
+Mikołaj Korzybski
+Kacper Misiak
