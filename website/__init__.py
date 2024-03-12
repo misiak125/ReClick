@@ -7,7 +7,7 @@ def create_app():
     from .auth import auth
     from .views import views
 
-    app.register_blueprint(vievs, url_prefx='/')
+    app.register_blueprint(views, url_prefx='/')
     app.register_blueprint(auth, url_prefix='/')
 
     return app 

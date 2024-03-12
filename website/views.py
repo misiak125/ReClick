@@ -1,7 +1,7 @@
 from flask import Blueprint
 
-vievs=Blueprint('vievs', __name__)
+views=Blueprint('vievs', __name__)
 
-@vievs.route('/')
+@views.route('/')
 def index():
     return "<p>niga</p>"
