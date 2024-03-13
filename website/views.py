@@ -4,4 +4,4 @@ views=Blueprint('vievs', __name__)
 
 @views.route('/')
 def index():
-    return "<p>niga</p>"
+    return "<p>main page</p>"
