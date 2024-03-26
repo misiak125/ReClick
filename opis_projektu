@@ -1,2 +1,20 @@
-1. Tytuł projektu
-ej zapisal ktos te punkty co tu trzeba napisac??
+1. Tytul projektu
+  ReClick
+
+2. Uczestnicy projektu
+  Filip Borek, Kacper Misiak, Mikołaj Korzybski, Jan Góral
+
+3. Jaką chcemy ocene za projekt
+  szustke
+
+4. Urzywane narzędzia
+  html, css, javascript - frontend
+  python (flask) - backend
+  sqlite - database
+
+5. Funkcjonalność projektu
+  Gra testująca czas reakcji na rozne sposoby. 
+  Mozliwosc zakladania profili.
+  Udostepnianie wynikow.
+  Ranking dzienny i ogolny.
+  Komentowanie cudzych profili. (opcjonalnie)
