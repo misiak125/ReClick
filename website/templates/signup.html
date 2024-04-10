@@ -3,35 +3,58 @@
 {% block content %}
 <div class="column is-4 is-offset-4">
     <h3 class="title">Sign Up</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="notification is-danger">
-                {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
-            </div>
-        {% endif %}
-        {% endwith %}
-        <form method="POST" action="/signup">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
-                </div>
-            </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="text" name="name" placeholder="Name" autofocus="">
-                </div>
-            </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Password">
-                </div>
-            </div>
-
-            <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
+    <main class="form-signin w-100 m-auto">
+        <form role="form" method="post" action="">
+          {{ form.csrf_token }}
+          <h1 class="h3 mb-3 fw-normal text-center">Please register</h1>
+  
+          <div class="form-floating">
+            {{ form.email(placeholder="email", class="form-control mb-2") }}
+            {{ form.email.label }}
+              {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                  <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+          </div>
+          <div class="form-floating">
+            {{ form.username(placeholder="username", class="form-control mb-2") }}
+            {{ form.username.label }}
+              {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                  <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+          </div>
+          <div class="form-floating">
+            {{ form.password(placeholder="password", class="form-control mb-2") }}
+            {{ form.password.label }}
+              {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                  <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+          </div>
+          <div class="form-floating">
+            {{ form.confirm(placeholder="Confirm Password", class="form-control mb-2") }}
+            {{ form.confirm.label }}
+              {% if form.confirm.errors %}
+                {% for error in form.confirm.errors %}
+                  <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+          <p class="text-center mt-3">Already registered? <a href="{{ url_for('auth.login') }}">Login now</a></p>
         </form>
-    </div>
+      </main>
 </div>
 {% endblock %}

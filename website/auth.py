@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
 from . import db
-from flask_login import login_user, login_required, logout_user, LoginManager
+from flask_login import login_user, login_required, current_user, logout_user, LoginManager
+from .forms import LoginForm, RegisterForm
 
 auth=Blueprint('auth', __name__)
 
@@ -20,38 +20,44 @@ def login_post():
 
     user = User.query.filter_by(email=email).first()
 
-    if not user or not check_password_hash(user.password, password):
-        flash('Please check your login details and try again.')
+    if not user:
+        flash('Please check your login details and try again.11')
+        return redirect(url_for('auth.login'))
+    
+    if not check_password_hash(user.password, password):
+        flash('Please check your login details and try again.22')
         return redirect(url_for('auth.login'))
 
     login_user(user, remember=remember)
 
     return redirect(url_for('views.profile'))
 
-@auth.route('/signup')
+
+@auth.route('/signup', methods=['GET', 'POST'])
 def signup():
-    return render_template('signup.html')
+    if current_user.is_authenticated:
+        flash("You are already registered.", "info")
+        return redirect(url_for("views.profile"))
 
-@auth.route('/signup', methods=['POST'])
-def signup_post():
-    email = request.form.get('email')
-    name = request.form.get('name')
-    password = request.form.get('password')
+    form = RegisterForm(request.form)
 
-    user = User.query.filter_by(email=email).first()
+    if request.method == 'POST' and form.validate():
+        email=form.email.data
+        
+        user = User.query.filter_by(email=email).first()
 
-    if user:
-        print("email already exists")
-        flash('Email address already exists')
-        return redirect(url_for('auth.signup'))
-
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='scrypt'))
+        if user:
+            flash('Email address already exists')
+            return redirect(url_for('auth.signup'))
+            
+        new_user = User(form.username.data, form.email.data,
+                    form.password.data)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Thanks for registering')
+        return redirect(url_for('auth.login'))
+    return render_template('signup.html', form=form)
     
-    db.session.add(new_user)
-    db.session.commit()
-    
-
-    return redirect(url_for('auth.login'))
 
 @auth.route('/logout')
 @login_required
