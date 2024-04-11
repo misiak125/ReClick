@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% from "_formhelpers.html" import render_field %}
 {% block content %}
 <div class="column is-4 is-offset-4">
     <h3 class="title">Login</h3>
@@ -11,24 +11,13 @@
             </div>
         {% endif %}
         {% endwith %}
-        <form method="POST" action="/login">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
-                </div>
-            </div>
+        <form role="form" method="POST" action="">
+            {{ form.csrf_token }}
+            {{ render_field(form.email) }}
 
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Your Password">
-                </div>
-            </div>
-            <div class="field">
-                <label class="checkbox">
-                    <input type="checkbox" name="remember">
-                    Remember me
-                </label>
-            </div>
+            {{ render_field(form.password) }}
+
+            {{ render_field(form.remember_me) }}
             <button class="button is-block is-info is-large is-fullwidth">Login</button>
         </form>
     </div>

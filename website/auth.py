@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from .models import User
+from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, current_user, logout_user, LoginManager
 from .forms import LoginForm, RegisterForm
@@ -8,29 +9,31 @@ auth=Blueprint('auth', __name__)
 
 login_manager = LoginManager()
 
-@auth.route('/login')
+@auth.route('/login', methods=['POST', 'GET'])
 def login():
-    return render_template('login.html')
+    if current_user.is_authenticated:
+        flash("You are already logged in.", "info")
+        return redirect(url_for("views.profile"))
 
-@auth.route('/login', methods=['POST'])
-def login_post():
-    email = request.form.get('email')
-    password = request.form.get('password')
-    remember = True if request.form.get('remember') else False
+    form = LoginForm(request.form)
 
-    user = User.query.filter_by(email=email).first()
+    if request.method == 'POST' and form.validate():
+        email = form.email.data
+        password = form.password.data
+        remember = form.remember_me.data
 
-    if not user:
-        flash('Please check your login details and try again.11')
-        return redirect(url_for('auth.login'))
-    
-    if not check_password_hash(user.password, password):
-        flash('Please check your login details and try again.22')
-        return redirect(url_for('auth.login'))
+        user = User.query.filter_by(email=email).first()
 
-    login_user(user, remember=remember)
+        if not user or not check_password_hash(user.password, password):
+            flash('Please check your login details and try again.')
+            return redirect(url_for('auth.login'))
+        
+        login_user(user, remember=remember)
 
-    return redirect(url_for('views.profile'))
+        return redirect(url_for('views.profile'))
+
+    return render_template('login.html', form=form)
+
 
 
 @auth.route('/signup', methods=['GET', 'POST'])
@@ -50,7 +53,7 @@ def signup():
             flash('Email address already exists')
             return redirect(url_for('auth.signup'))
             
-        new_user = User(form.username.data, form.email.data,
+        new_user = User(form.email.data, form.username.data,
                     form.password.data)
         db.session.add(new_user)
         db.session.commit()
