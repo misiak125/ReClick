@@ -9,6 +9,13 @@ auth=Blueprint('auth', __name__)
 
 login_manager = LoginManager()
 
+def flash_errors(form):
+    """Flashes form errors"""
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(error, 'error')
+
+
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
     if current_user.is_authenticated:
@@ -32,6 +39,7 @@ def login():
 
         return redirect(url_for('views.profile'))
 
+    flash_errors(form)
     return render_template('login.html', form=form)
 
 
@@ -44,6 +52,7 @@ def signup():
 
     form = RegisterForm(request.form)
 
+    
     if request.method == 'POST' and form.validate():
         email=form.email.data
         
@@ -59,6 +68,7 @@ def signup():
         db.session.commit()
         flash('Thanks for registering')
         return redirect(url_for('auth.login'))
+    flash_errors(form)
     return render_template('signup.html', form=form)
     
 
