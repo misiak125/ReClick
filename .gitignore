@@ -1,0 +1,4 @@
+.venv
+website/__pycache__/
+instance/database.db
+todo
