@@ -1,20 +1,32 @@
 {% extends "base.html" %}
-
+{% from "_formhelpers.html" import render_field %}
 {% block content %}
-    <h1>Users</h1>
+<h1>Users</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+        {% endif %}
+    {% endwith %}
+    <form role="form" method="post" action="">
+        <label for="username">Search by Username:</label>
+        {{render_field(form.search)}}
+        <button type="submit">Search</button>
+    </form>
     <table border="1">
         <thead>
             <tr>
-                <!--<th>ID</th>
-                <th>Email</th>-->
+                <th>ID</th>
+                <th>Email</th>
                 <th>Username</th>
             </tr>
         </thead>
         <tbody>
             {% for user in users %}
             <tr>
-                <!--<td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>-->
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
                 <td>{{ user.name }}</td>
             </tr>
             {% endfor %}
