@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 {% from "_formhelpers.html" import render_field %}
 {% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Sign Up</h3>
+    <div class="box">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="notification is-danger">
+              {{ messages[0] }}
+          </div>
+        {% endif %}
+      {% endwith %}
+      <main class="form-signin w-100 m-auto">
+        <form role="form" method="post" action="">
+          {{ form.csrf_token }}
+  
+          {{ render_field(form.email) }}
 <div class="login-box">
 
     <div class="login-title">
