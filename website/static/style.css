@@ -11,6 +11,18 @@
     font-display: swap;
 }
 
+@font-face{
+    font-family: "Lovelo Line";
+    src: url("fonts/Lovelo-LineBold.eot");
+    src: url("fonts/Lovelo-LineBold.eot")format("embedded-opentype"),
+        url("fonts/Lovelo-LineBold.woff")format("woff"),
+        url("fonts/Lovelo-LineBold.woff2")format("woff2"),
+        url("fonts/Lovelo-LineBold.ttf")format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
 a {
     all: unset;
 }
@@ -80,11 +92,12 @@ nav {
         0px 0px 8px;
 }
 
-#navbar-play {
+.navbar-play {
     background: rgb(18,194,233);
     background: linear-gradient(100deg, #0097B2 0%, #7ED957 100%);
     /*background: linear-gradient(100deg, rgba(18,194,233,1) 0%, rgba(0,255,201,1) 44%, rgba(193,255,114,1) 100%);*/
     font-size: 48px;
+    text-align: center;
     /*text-shadow:
         0px 1px, 1px 0px, 1px 1px,
         0px 2px, 2px 0px, 2px 2px;*/
@@ -94,7 +107,7 @@ nav {
     padding: 5px 40px;
 }
 
-#navbar-play:hover {
+.navbar-play:hover {
     transition-duration: 0.3s;
     background: linear-gradient(100deg, rgba(0,188,222,1) 0%, rgba(147,255,101,1) 100%);
     text-shadow:
@@ -209,4 +222,34 @@ nav {
 
 #login-button-register {
     background-color: #1b1b1b;
+}
+
+.home-text {
+    font-family: "Lovelo Line";
+    font-size: 8vw;
+    text-align: center;
+    text-shadow: 
+        0px 0px 1vw,
+        0px 0px 3vw;
+
+    position: absolute;
+    top: max(10vw, 100px);
+    left: 10vw;
+}
+
+#home-button {
+    width: 25vw;
+    font-size: 8vw;
+    border-radius: 10vw;
+    
+    position: absolute;
+    top: 35vw;
+    left: 20vw;
+}
+
+#home-spike {
+    position: absolute;
+    top: 21vw;
+    left: 64vw;
+    max-width: 35vw;
 }
