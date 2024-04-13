@@ -1,25 +1,43 @@
 {% extends "base.html" %}
 {% from "_formhelpers.html" import render_field %}
 {% block content %}
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Login</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
+<div class="login-box">
+    <div class="login-title">
+        LOGIN
+    </div>
+    <div class="login-line"></div>
+
+    {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <div class="notification is-danger">
+            <div>
                 {{ messages[0] }}
             </div>
         {% endif %}
-        {% endwith %}
-        <form role="form" method="POST" action="">
-            {{ form.csrf_token }}
+    {% endwith %}
+
+    <form role="form" method="POST" action="">
+        {{ form.csrf_token }}
+        <div class="login-input">
+            <!--<div class="login-input-title">
+                email adress:
+            </div>-->
             {{ render_field(form.email) }}
-
+        </div>
+        <div class="login-input">
+            <!--<div class="login-input-title">
+                password:
+            </div>-->
             {{ render_field(form.password) }}
+        </div>
 
-            {{ render_field(form.remember_me) }}
-            <button class="button is-block is-info is-large is-fullwidth">Login</button>
-        </form>
-    </div>
+        <div class="login-button-box">
+            <button class="login-button" id="login-button-login">
+                LOGIN
+            </button>
+            <a href="{{ url_for("auth.signup") }}" class="login-button" id="login-button-register">
+                SIGN UP
+            </a>
+        </div>
+    </form>
 </div>
 {% endblock %}

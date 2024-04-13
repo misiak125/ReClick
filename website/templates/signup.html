@@ -1,30 +1,43 @@
 {% extends "base.html" %}
 {% from "_formhelpers.html" import render_field %}
 {% block content %}
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Sign Up</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="notification is-danger">
+<div class="login-box">
+    <div class="login-title">
+        SIGN UP
+    </div>
+    <div class="login-line"></div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div>
                 {{ messages[0] }}
             </div>
-          {% endif %}
-        {% endwith %}
-      <main class="form-signin w-100 m-auto">
-        <form role="form" method="post" action="">
-          {{ form.csrf_token }}
-  
-          {{ render_field(form.email) }}
-          {{ render_field(form.username) }}
-          {{ render_field(form.password) }}
-          {{ render_field(form.confirm) }}
+        {% endif %}
+    {% endwith %}
 
-          <button class="button is-block is-info is-large is-fullwidth" type="submit">Sign up</button>
-          <p class="text-center mt-3">Already registered? <a href="{{ url_for('auth.login') }}">Login now</a></p>
-        </form>
-        
-      </main>
-    </div>
+    <form role="form" method="POST" action="">
+        {{ form.csrf_token }}
+        <div class="login-input">
+            {{ render_field(form.email) }}
+        </div>
+        <div class="login-input">
+          {{ render_field(form.username) }}
+        </div>
+        <div class="login-input">
+        {{ render_field(form.password) }}
+        </div>
+        <div class="login-input">
+            {{ render_field(form.confirm) }}
+        </div>
+
+        <div class="login-button-box">
+            <button class="login-button" id="login-button-login">
+                SIGN UP
+            </button>
+            <a href="{{ url_for("auth.login") }}" class="login-button" id="login-button-register">
+                LOGIN
+            </a>
+        </div>
+    </form>
 </div>
 {% endblock %}

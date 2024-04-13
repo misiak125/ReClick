@@ -1,0 +1,212 @@
+@font-face{
+    font-family: "Jaturat";
+    src: url("fonts/Jaturat.eot");
+    src: url("fonts/Jaturat.eot")format("embedded-opentype"),
+        url("fonts/Jaturat.woff")format("woff"),
+        url("fonts/Jaturat.woff2")format("woff2"),
+        url("fonts/Jaturat.ttf")format("truetype"),
+        url("fonts/Jaturat.svg")format("svg");
+    font-weight: bolder;
+    font-style: normal;
+    font-display: swap;
+}
+
+a {
+    all: unset;
+}
+
+input {
+    all: unset;
+}
+
+button {
+    all: unset;
+}
+
+body {
+    background-color: #272626;
+    font-family: "Jaturat";
+    font-weight: 900;
+    color: white;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+nav {
+    background-color: #1b1b1b;
+
+    padding: 0.5rem 0px;
+    position: sticky;
+    top: 0px;
+    font-size: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-set {
+    /*background-color: aquamarine;*/
+
+    width: 100%;
+    padding: 0px 10px;
+
+    display: flex;
+    align-items: center;
+}
+
+#navbar-set-left {
+    justify-content: left;
+}
+
+#navbar-set-right {
+    justify-content: right;
+}
+
+.navbar-logo {
+    padding: 0vw 1vw;
+}
+
+.navbar-page-link{
+    margin: 0px 1vw;
+}
+
+.navbar-page-link:hover {
+    transition-duration: 0.3s;
+    cursor: pointer;
+    text-shadow:
+        0px 0px 4px,
+        0px 0px 8px;
+}
+
+#navbar-play {
+    background: rgb(18,194,233);
+    background: linear-gradient(100deg, #0097B2 0%, #7ED957 100%);
+    /*background: linear-gradient(100deg, rgba(18,194,233,1) 0%, rgba(0,255,201,1) 44%, rgba(193,255,114,1) 100%);*/
+    font-size: 48px;
+    /*text-shadow:
+        0px 1px, 1px 0px, 1px 1px,
+        0px 2px, 2px 0px, 2px 2px;*/
+    letter-spacing: 4px;
+    border-radius: 40px;
+
+    padding: 5px 40px;
+}
+
+#navbar-play:hover {
+    transition-duration: 0.3s;
+    background: linear-gradient(100deg, rgba(0,188,222,1) 0%, rgba(147,255,101,1) 100%);
+    text-shadow:
+        0px 0px 7px,
+        0px 0px 12px;
+    cursor: pointer;
+}
+
+#navbar-icon {
+    font-size: 48px;
+}
+
+
+
+
+
+
+.login-box {
+    /*background-color: darkkhaki;*/
+    
+    min-width: 100px;
+    min-height: 100px;
+    margin-top: 7vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-title {
+    /*background-color: aquamarine;*/
+    font-size: 72px;
+
+    margin: 10px;
+    max-height: 1em;
+    
+    display: flex;
+    align-items: center;
+}
+
+.login-line {
+    background: rgb(18,194,233);
+    background: linear-gradient(100deg, #0097B2 0%, #7ED957 100%);
+    border-radius: 10px;
+    
+    max-width: 800px;
+    width: 87vw;
+    height: 10px;
+    margin-bottom: 30px;
+}
+
+.login-input {
+    background-color: #1b1b1b;
+    font-size: 24px;
+
+    padding: 20px;
+    margin: 10px;
+    max-width: 600px;
+    width: 75vw;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.login-input-input {
+    margin: 0px 20px;
+    flex: 1;
+    min-width: 10px;
+}
+
+.login-button-box {
+    /*background-color: blueviolet;*/
+    font-size: 36px;
+
+    max-width: 640px;
+    width: 100vw;
+    margin: 30px 0px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-button {
+    background-color: darkcyan;
+    border-radius: 30px;
+
+    width: 40%;
+    min-width: fit-content;
+    flex: 1;
+    padding: 5px 20px;
+    margin: 0px 20px;
+
+    text-align: center;
+}
+
+.login-button:hover {
+    transition-duration: 0.3s;
+    cursor: pointer;
+    text-shadow:
+        0px 0px 4px,
+        0px 0px 8px;
+}
+
+#login-button-login {
+    background: rgb(18,194,233);
+    background: linear-gradient(100deg, #0097B2 0%, #7ED957 100%);
+}
+
+#login-button-login:hover {
+    background: linear-gradient(100deg, rgba(0,188,222,1) 0%, rgba(147,255,101,1) 100%);
+}
+
+#login-button-register {
+    background-color: #1b1b1b;
+}
