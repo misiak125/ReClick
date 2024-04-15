@@ -253,3 +253,23 @@ nav {
     left: 64vw;
     max-width: 35vw;
 }
+
+.error-box {
+    background-color: #b51b35;
+    border-radius: 100vw;
+    font-size: 24px;
+
+    padding: 10px 20px;
+    margin-bottom: 40px;
+    width: fit-content;
+    max-width: 80vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#error-icon {
+    font-size: 52px;
+    padding-right: 30px;
+}

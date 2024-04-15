@@ -2,18 +2,24 @@
 {% from "_formhelpers.html" import render_field %}
 {% block content %}
 <div class="login-box">
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="error-box">
+                <span class="material-symbols-outlined" id="error-icon">
+                    error
+                </span>
+                <div>
+                    {{ messages[0] }}
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
+
     <div class="login-title">
         LOGIN
     </div>
     <div class="login-line"></div>
-
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div>
-                {{ messages[0] }}
-            </div>
-        {% endif %}
-    {% endwith %}
 
     <form role="form" method="POST" action="">
         {{ form.csrf_token }}
