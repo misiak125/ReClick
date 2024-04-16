@@ -19,7 +19,7 @@ def flash_errors(form):
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
     if current_user.is_authenticated:
-        flash("You are already logged in.", "info")
+        flash("You are already logged in.", 'info')
         return redirect(url_for("views.profile"))
 
     form = LoginForm(request.form)
@@ -32,7 +32,7 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if not user or not check_password_hash(user.password, password):
-            flash('Please check your login details and try again.')
+            flash('Please check your login details and try again.', 'error')
             return redirect(url_for('auth.login'))
         
         login_user(user, remember=remember)
@@ -47,7 +47,7 @@ def login():
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     if current_user.is_authenticated:
-        flash("You are already registered.", "info")
+        flash("You are already registered.", 'info')
         return redirect(url_for("views.profile"))
 
 
@@ -60,14 +60,14 @@ def signup():
         user = User.query.filter_by(email=email).first()
 
         if user:
-            flash('Email address already exists')
+            flash('Email address already exists', 'error')
             return redirect(url_for('auth.signup'))
             
         new_user = User(form.email.data, form.username.data,
                     form.password.data)
         db.session.add(new_user)
         db.session.commit()
-        flash('Thanks for registering')
+        flash('Thanks for registering', 'happy')
         return redirect(url_for('auth.login'))
     flash_errors(form)
     return render_template('signup.html', form=form)
