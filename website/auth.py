@@ -50,6 +50,7 @@ def signup():
         flash("You are already registered.", "info")
         return redirect(url_for("views.profile"))
 
+
     form = RegisterForm(request.form)
 
     

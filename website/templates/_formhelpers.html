@@ -24,38 +24,29 @@
             {{ field.label.text|safe }}
         </label>
     </div>
+    {% elif field.type == 'PasswordField' %}
+    <div class="input-group">
+        {{ field(class_=class_, placeholder=placeholder, **kwargs) }}
+       
+    </div>
     {% else %}
-
-    {% if field.type in ('StringField', 'EmailField', 'TextField', 'TextAreaField', 'PasswordField',
-                         'IntegerField') %}
-
+    {% if field.type in ('StringField', 'EmailField', 'TextField', 'TextAreaField', 'IntegerField') %}
     {% set class_ = class_ + ' input is-large' %}
-
     {% elif field.type == 'FileField' %}
-
     {% set class_ = class_ + ' input-file form-control' %}
-
     {% endif %}
-
     {% if field.type == 'SelectField' %}
-
     {{ field(class_=class_, **kwargs) }}
-
     {% else %}
-
     {{ field(class_=class_, placeholder=placeholder, **kwargs) }}
-
     {% endif %}
-
     {% endif %}
-<!-- 
-    {% if field.errors %}
-    <span class="error help-inline">{{ field.errors|join(', ') }}</span> 
-    {% endif %}-->
 
     {% if field.description %}
     <p class="help-block">{{ field.description|safe }}</p>
     {% endif %}
 
 </div>
+
+
 {%- endmacro %}
