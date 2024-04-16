@@ -2,7 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-from .cli_commands import register_commands
 
 
 db = SQLAlchemy()
@@ -24,7 +23,6 @@ def create_app():
 
     from .models import User
 
-
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
@@ -32,7 +30,8 @@ def create_app():
     from .auth import auth
     from .views import views
 
-    register_commands(app)
+    from .cli_commands import create_admin
+    app.cli.add_command(create_admin)
 
     app.register_blueprint(views, url_prefx='/')
     app.register_blueprint(auth, url_prefix='/')
