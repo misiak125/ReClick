@@ -14,6 +14,8 @@ class User(db.Model, UserMixin):
     created_on = db.Column(db.DateTime, nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
     is_banned = db.Column(db.Boolean, nullable=False, default=False)
+    is_active = db.Column(db.Boolean, nullable=False, default=False)
+    activated_on = db.Column(db.DateTime, nullable=False)
 
     def __init__(self, email, name, password, is_admin=False, is_banned=False):
         self.email = email
@@ -23,5 +25,7 @@ class User(db.Model, UserMixin):
         self.is_admin = is_admin
         self.is_banned = is_banned
 
+    def __repr__(self):
+        return f"<email: {self.email}, username: {self.name}>"
     
 
