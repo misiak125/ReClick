@@ -1,11 +1,11 @@
 import click
-from flask.cli import with_appcontext
-from . import create_app, db
+from flask.cli import with_appcontext, cli
+from . import db
 from .models import User
 import getpass
 
 
-@click.command()
+@cli.command("create_admin")
 @with_appcontext
 def create_admin():
     """Creates the admin user."""

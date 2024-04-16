@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-
+import manage.py
 
 db = SQLAlchemy()
 DB_NAME="database.db"
@@ -30,14 +30,13 @@ def create_app():
     from .auth import auth
     from .views import views
 
-    from .cli_commands import create_admin
-    app.cli.add_command(create_admin)
-
     app.register_blueprint(views, url_prefx='/')
     app.register_blueprint(auth, url_prefix='/')
 
     with app.app_context():
         db.create_all()
+
+    app.cli.add_command(manage.create_admin)
 
     return app 
 
