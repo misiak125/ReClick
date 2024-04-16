@@ -32,11 +32,6 @@ class RegisterForm(FlaskForm):
             EqualTo("password", message="Passwords must match."),
         ],
     )
-    show_password = BooleanField(
-        'Show password', 
-        id='check',
-        validators=[]
-        )
 
     def validate(self):
         initial_validation = super(RegisterForm, self).validate()
