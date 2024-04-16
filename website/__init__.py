@@ -2,7 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-import manage.py
 
 db = SQLAlchemy()
 DB_NAME="database.db"
@@ -36,7 +35,9 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-    app.cli.add_command(manage.create_admin)
+    from .manage import user_cli
+    app.register_blueprint(user_cli)
+
 
     return app 
 
