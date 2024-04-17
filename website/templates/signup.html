@@ -3,16 +3,38 @@
 {% block content %}
 <div class="login-box">
 
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-        <div class="error-box">
-            <span class="material-symbols-outlined" id="error-icon">
-                error
-            </span>
-            <div>
-                {{ messages[0] }}
-            </div>
-        </div>
+            {% for message in messages %}
+                {% if message[0] == "happy" %}
+                    <div class="message-box message-box-happy">
+                        <span class="material-symbols-outlined" id="message-icon">
+                            sentiment_very_satisfied
+                        </span>
+                        <div>
+                            {{ message[1] }}
+                        </div>
+                    </div>
+                {% elif message[0] == "info" %}
+                    <div class="message-box message-box-info">
+                        <span class="material-symbols-outlined" id="message-icon">
+                            info
+                        </span>
+                        <div>
+                            {{ message[1] }}
+                        </div>
+                    </div>
+                {% elif message[0] == "error" %}
+                    <div class="message-box message-box-error">
+                        <span class="material-symbols-outlined" id="message-icon">
+                            error
+                        </span>
+                        <div>
+                            {{ message[1] }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% endif %}
     {% endwith %}
 
@@ -46,7 +68,7 @@
             <button class="login-button" id="login-button-login">
                 SIGN UP
             </button>
-            <a href="{{ url_for("auth.login") }}" class="login-button" id="login-button-register">
+            <a href="{{ url_for('auth.login') }}" class="login-button" id="login-button-register">
                 LOGIN
             </a>
         </div>
