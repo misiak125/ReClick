@@ -8,7 +8,7 @@
 {% set class_ = class_ + ' required' %}
 {% endif %}
 
-<div class="form-group {% if field.errors %}error{% endif %}">
+<div class="form-group{% if field.errors %} error{% endif %}">
 
     {% if with_label %}
     <label for="{{ field.id }}"
@@ -25,10 +25,8 @@
         </label>
     </div>
     {% elif field.type == 'PasswordField' %}
-    <div class="input-group">
         {{ field(class_=class_, placeholder=placeholder, **kwargs) }}
        
-    </div>
     {% else %}
     {% if field.type in ('StringField', 'EmailField', 'TextField', 'TextAreaField', 'IntegerField') %}
     {% set class_ = class_ + ' input is-large' %}

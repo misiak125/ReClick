@@ -21,21 +21,19 @@
     </div>
     <div class="login-line"></div>
 
-    <form role="form" method="POST" action="">
+    <form class="login-form" role="form" method="POST" action="">
         {{ form.csrf_token }}
-        <div class="login-input">
-            <!--<div class="login-input-title">
-                email adress:
-            </div>-->
+        <div class="login-input-box">
             {{ render_field(form.email) }}
         </div>
-        <div class="login-input">
-            <!--<div class="login-input-title">
-                password:
-            </div>-->
+        <div class="login-input-box">
             {{ render_field(form.password) }}
+            <button class="login-show-password-button" type="button" onclick="togglePasswordVisibilityLogin('password')">
+                <span class="material-symbols-outlined" id="key-icon">
+                    visibility
+                </span>
+            </button>
         </div>
-        <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibilityLogin('password')">Show password</button>
 
 
         <div class="login-button-box">
