@@ -13,26 +13,7 @@
             {{ render_field(form.email) }}
         </div>
         <div class="login-input-box">
-        </div>
-        <div class="login-input-box">
             {{ render_field(form.password) }}
-            <button class="login-show-password-button" type="button" onclick="togglePasswordVisibilityLogin('password')">
-                <span class="material-symbols-outlined" id="key-icon">
-                    visibility
-                </span>
-            </button>
-        </div>
-
-
-        <div class="login-button-box">
-            <button class="login-button" id="login-button-login">
-                LOGIN
-            </button>
-            <a href="{{ url_for('auth.signup') }}" class="login-button" id="login-button-register">
-                SIGN UP
-            </a>
-        </div>
-    </form>
             <button class="login-show-password-button" type="button" onclick="togglePasswordVisibilityLogin('password')">
                 <span class="material-symbols-outlined" id="key-icon">
                     visibility

@@ -128,7 +128,7 @@ nav {
     
     min-width: 100px;
     min-height: 100px;
-    margin-top: 7vw;
+    margin-top: 100px;
 
     display: flex;
     flex-direction: column;
@@ -283,7 +283,7 @@ input::placeholder {
 
 .message-box-box {
     width: 100vw;
-    margin: 50px 0px;
+    margin-top: 50px;
 
     display: flex;
     justify-content: center;
@@ -318,4 +318,37 @@ input::placeholder {
 #message-icon {
     font-size: 52px;
     padding-right: 30px;
+}
+
+.users-box {
+    background-color: lightcoral;
+
+    width: 100vw;
+    margin-top: 60px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.users-title {
+    background-color: aquamarine;
+    font-size: 72px;
+
+    margin: 10px;
+    max-height: 1em;
+    
+    display: flex;
+    align-items: center;
+}
+
+.users-line {
+    background: rgb(18,194,233);
+    background: linear-gradient(100deg, #0097B2 0%, #7ED957 100%);
+    border-radius: 10px;
+    
+    max-width: 800px;
+    width: 87vw;
+    height: 10px;
+    margin-bottom: 30px;
 }
