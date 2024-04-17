@@ -254,8 +254,7 @@ nav {
     max-width: 35vw;
 }
 
-.error-box {
-    background-color: #b51b35;
+.message-box {
     border-radius: 100vw;
     font-size: 24px;
 
@@ -269,7 +268,19 @@ nav {
     align-items: center;
 }
 
-#error-icon {
+.message-box-happy {
+    background-color: #23a837;
+}
+
+.message-box-info {
+    background-color: #707070;
+}
+
+.message-box-error {
+    background-color: #b51b35;
+}
+
+#message-icon {
     font-size: 52px;
     padding-right: 30px;
 }
