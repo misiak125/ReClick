@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<img src="{{ url_for('static', filename='Image/main_img.png') }}" class="image" alt="fake_main"/>
+<div class="home-text">
+    PLAY THE BEST <br> REACTION GAME
+</div>
+<a href="{{ url_for('views.index') }}">
+    <div class="navbar-play" id="home-button">
+        PLAY
+    </div>
+</a>
+<img src="../static/Image/spike.png" alt="spike" id="home-spike">
 {% endblock %}

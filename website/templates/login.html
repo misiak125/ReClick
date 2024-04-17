@@ -1,25 +1,71 @@
 {% extends "base.html" %}
 {% from "_formhelpers.html" import render_field %}
 {% block content %}
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Login</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
+<div class="login-box">
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div class="notification is-danger">
-                {{ messages[0] }}
-            </div>
+            {% for message in messages %}
+                {% if message[0] == "happy" %}
+                    <div class="message-box message-box-happy">
+                        <span class="material-symbols-outlined" id="message-icon">
+                            sentiment_very_satisfied
+                        </span>
+                        <div>
+                            {{ message[1] }}
+                        </div>
+                    </div>
+                {% elif message[0] == "info" %}
+                    <div class="message-box message-box-info">
+                        <span class="material-symbols-outlined" id="message-icon">
+                            info
+                        </span>
+                        <div>
+                            {{ message[1] }}
+                        </div>
+                    </div>
+                {% elif message[0] == "error" %}
+                    <div class="message-box message-box-error">
+                        <span class="material-symbols-outlined" id="message-icon">
+                            error
+                        </span>
+                        <div>
+                            {{ message[1] }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% endif %}
-        {% endwith %}
-        <form role="form" method="POST" action="">
-            {{ form.csrf_token }}
-            {{ render_field(form.email) }}
+    {% endwith %}
 
-            {{ render_field(form.password) }}
-
-            {{ render_field(form.remember_me) }}
-            <button class="button is-block is-info is-large is-fullwidth">Login</button>
-        </form>
+    <div class="login-title">
+        LOGIN
     </div>
+    <div class="login-line"></div>
+
+    <form class="login-form" role="form" method="POST" action="">
+        {{ form.csrf_token }}
+        <div class="login-input-box">
+            {{ render_field(form.email) }}
+        </div>
+        <div class="login-input-box">
+            {{ render_field(form.password) }}
+            <button class="login-show-password-button" type="button" onclick="togglePasswordVisibilityLogin('password')">
+                <span class="material-symbols-outlined" id="key-icon">
+                    visibility
+                </span>
+            </button>
+        </div>
+
+
+        <div class="login-button-box">
+            <button class="login-button" id="login-button-login">
+                LOGIN
+            </button>
+            <a href="{{ url_for('auth.signup') }}" class="login-button" id="login-button-register">
+                SIGN UP
+            </a>
+        </div>
+    </form>
 </div>
 {% endblock %}
