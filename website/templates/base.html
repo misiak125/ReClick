@@ -49,9 +49,14 @@
                     home
                 </span>
             </a>
-            <a href="" class="navbar-page-link">
+            <a href="{{ url_for('views.users') }}" class="navbar-page-link">
                 <span class="material-symbols-outlined" id="navbar-icon">
                     trophy
+                </span>
+            </a>
+            <a href="{{ url_for('views.users') }}" class="navbar-page-link">
+                <span class="material-symbols-outlined" id="navbar-icon">
+                    groups
                 </span>
             </a>
             <a href="{{ url_for('views.profile') }}" class="navbar-page-link">
