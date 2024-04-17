@@ -8,12 +8,14 @@
     </div>
     <div class="users-line"></div>
     
-    <form role="form" method="post" action="">
-        <label for="username">Search by Username:</label>
-        {{render_field(form.search)}}
-        <button type="submit">Search</button>
+    <form class="users-search-box" role="form" method="post" action="">
+        <div class="users-search-input">
+            {{render_field(form.search)}}
+        </div>
+        <button class="users-search-button" type="submit">SEARCH</button>
     </form>
-    <table border="1">
+
+    <table class="users-table">
         <thead>
             <tr>
                 <th>ID</th>

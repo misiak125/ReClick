@@ -321,7 +321,7 @@ input::placeholder {
 }
 
 .users-box {
-    background-color: lightcoral;
+    /*background-color: lightcoral;*/
 
     width: 100vw;
     margin-top: 60px;
@@ -332,7 +332,7 @@ input::placeholder {
 }
 
 .users-title {
-    background-color: aquamarine;
+    /*background-color: aquamarine;*/
     font-size: 72px;
 
     margin: 10px;
@@ -347,8 +347,76 @@ input::placeholder {
     background: linear-gradient(100deg, #0097B2 0%, #7ED957 100%);
     border-radius: 10px;
     
-    max-width: 800px;
+    max-width: 1100px;
     width: 87vw;
     height: 10px;
     margin-bottom: 30px;
+}
+
+.users-search-box {
+    /*background-color: darkgreen;*/
+
+    max-width: 800px;
+    width: 75vw;
+
+    display: flex;
+    align-items: center;
+}
+
+.users-search-button {
+    border-radius: 30px;
+    background: rgb(18,194,233);
+    background: linear-gradient(100deg, #0097B2 0%, #7ED957 100%);
+    font-size: 28px;
+
+    width: 40%;
+    min-width: fit-content;
+    height: fit-content;
+    flex: 1;
+    padding: 10px 20px;
+    margin-left: 20px;
+
+    text-align: center;
+}
+
+.users-search-button:hover {
+    cursor: pointer;
+}
+
+.users-search-input {
+    background-color: #1b1b1b;
+    font-size: 20px;
+
+    padding: 15px;
+    margin: 10px;
+    max-width: 600px;
+    width: 75vw;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.users-table {
+    border-collapse: collapse;
+    font-size: 20px;
+
+    width: 80vw;
+    max-width: 900px;
+    margin-top: 30px;
+
+    text-align: center;
+}
+
+.users-table th {
+    font-size: 26px;
+    border: 3px solid #707070;
+
+    padding: 10px 0px;
+}
+
+.users-table td {
+    border: 1px solid #707070;
+
+    padding: 5px 0px;
 }
