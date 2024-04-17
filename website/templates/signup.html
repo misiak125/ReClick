@@ -49,30 +49,55 @@
             {{ render_field(form.email) }}
         </div>
         <div class="login-input-box">
-          {{ render_field(form.username) }}
-        </div>
-        <div class="login-input-box">
-            {{ render_field(form.password) }}
-            <button class="login-show-password-button" type="button" onclick="togglePasswordVisibilitySignup('password', 'confirm')">
-                <span class="material-symbols-outlined" id="key-icon">
-                    visibility
-                </span>
-            </button>
-        </div>
-        <div class="login-input-box">
-            {{ render_field(form.confirm) }}
-        </div>
-        
+<div class="login-box">
 
-        <div class="login-button-box">
-            <button class="login-button" id="login-button-login">
-                SIGN UP
-            </button>
-            <a href="{{ url_for('auth.login') }}" class="login-button" id="login-button-register">
-                LOGIN
-            </a>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for message in messages %}
+                {% if message[0] == "happy" %}
+                    <div class="message-box message-box-happy">
+                        <span class="material-symbols-outlined" id="message-icon">
+                            sentiment_very_satisfied
+                        </span>
+                        <div>
+                            {{ message[1] }}
+                        </div>
+                    </div>
+                {% elif message[0] == "info" %}
+                    <div class="message-box message-box-info">
+                        <span class="material-symbols-outlined" id="message-icon">
+                            info
+                        </span>
+                        <div>
+                            {{ message[1] }}
+                        </div>
+                    </div>
+                {% elif message[0] == "error" %}
+                    <div class="message-box message-box-error">
+                        <span class="material-symbols-outlined" id="message-icon">
+                            error
+                        </span>
+                        <div>
+                            {{ message[1] }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="login-title">
+        SIGN UP
+    </div>
+    <div class="login-line"></div>
+
+    <form role="form" method="POST" action="">
+        {{ form.csrf_token }}
+        <div class="login-input-box">
+            {{ render_field(form.email) }}
         </div>
-    </form>
+        <div class="login-input-box">
+          {{ render_field(form.username) }}
         </div>
         <div class="login-input-box">
             {{ render_field(form.password) }}
