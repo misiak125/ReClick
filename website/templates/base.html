@@ -1,4 +1,5 @@
 <html lang="en">
+<html lang="en">
 <head>
     <title>SpikeClick</title>
 
@@ -9,7 +10,19 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />  <!------>
     
        
+    <title>SpikeClick</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href=" {{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />  <!------>
+    
+       
 </head>
+<script type=text/javascript src="{{
+    url_for('static', filename='/main.js')
+  }}"></script>
 <script type=text/javascript src="{{
     url_for('static', filename='/main.js')
   }}"></script>
@@ -36,9 +49,14 @@
                     home
                 </span>
             </a>
-            <a href="" class="navbar-page-link">
+            <a href="{{ url_for('views.users') }}" class="navbar-page-link">
                 <span class="material-symbols-outlined" id="navbar-icon">
                     trophy
+                </span>
+            </a>
+            <a href="{{ url_for('views.users') }}" class="navbar-page-link">
+                <span class="material-symbols-outlined" id="navbar-icon">
+                    groups
                 </span>
             </a>
             <a href="{{ url_for('views.profile') }}" class="navbar-page-link">
