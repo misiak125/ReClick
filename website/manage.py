@@ -14,6 +14,11 @@ user_cli = Blueprint('user', __name__)
 def create_admin():
     """Creates the admin user."""
     email = input("Enter email address: ")
+    existing_user = User.query.filter_by(email=email).first()
+    if existing_user:
+        print("Email already registered")
+        return 1
+
     name = input("Enter username: ")
     password = getpass.getpass("Enter password: ")
     confirm_password = getpass.getpass("Confirm password: ")
@@ -21,7 +26,7 @@ def create_admin():
         print("Passwords don't match")
         return 1
     try:
-        user = User(email, password, name, is_admin=True, is_active=True, activated_on=datetime.datetime.now())
+        user = User(email, name, password, is_admin=True, is_active=True, activated_on=datetime.datetime.now())
         db.session.add(user)
         db.session.commit()
         print("Admin user created successfully.")
