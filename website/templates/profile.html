@@ -2,41 +2,6 @@
 
 {% block content %}
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for message in messages %}
-            {% if message[0] == "happy" %}
-                <div class="message-box message-box-happy">
-                    <span class="material-symbols-outlined" id="message-icon">
-                        sentiment_very_satisfied
-                    </span>
-                    <div>
-                        {{ message[1] }}
-                    </div>
-                </div>
-            {% elif message[0] == "info" %}
-                <div class="message-box message-box-info">
-                    <span class="material-symbols-outlined" id="message-icon">
-                        info
-                    </span>
-                    <div>
-                        {{ message[1] }}
-                    </div>
-                </div>
-            {% elif message[0] == "error" %}
-                <div class="message-box message-box-error">
-                    <span class="material-symbols-outlined" id="message-icon">
-                        error
-                    </span>
-                    <div>
-                        {{ message[1] }}
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-
 <h1>
   Welcome, {{name}}!
 </h1>

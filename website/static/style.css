@@ -281,6 +281,14 @@ input::placeholder {
     max-width: 35vw;
 }
 
+.message-box-box {
+    width: 100vw;
+    margin: 50px 0px;
+
+    display: flex;
+    justify-content: center;
+}
+
 .message-box {
     border-radius: 100vw;
     font-size: 24px;
