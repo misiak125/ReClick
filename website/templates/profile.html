@@ -3,6 +3,11 @@
 <h1>
   Welcome, {{name}}!
 </h1>
+{% if current_user.name == koperadmin %}
+<h1> 
+Jestes debilem
+</h1>
+{% endif %}
 {% if current_user.is_admin %}
 <h1> 
 Jestes sigmom

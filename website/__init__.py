@@ -37,7 +37,7 @@ def create_app():
 
     from .manage import user_cli
     app.register_blueprint(user_cli)
-
+    
 
     return app 
 

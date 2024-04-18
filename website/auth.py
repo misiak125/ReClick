@@ -4,6 +4,8 @@ from werkzeug.security import check_password_hash
 from . import db
 from flask_login import login_user, login_required, current_user, logout_user, LoginManager
 from .forms import LoginForm, RegisterForm
+#from .token import confirm_token, generate_token
+from .utils.decorators import logout_required
 
 auth=Blueprint('auth', __name__)
 
@@ -17,10 +19,8 @@ def flash_errors(form):
 
 
 @auth.route('/login', methods=['POST', 'GET'])
+@logout_required
 def login():
-    if current_user.is_authenticated:
-        flash("You are already logged in.", "info")
-        return redirect(url_for("views.profile"))
 
     form = LoginForm(request.form)
 
@@ -45,13 +45,9 @@ def login():
 
 
 @auth.route('/signup', methods=['GET', 'POST'])
+@logout_required
 def signup():
-    if current_user.is_authenticated:
-        flash("You are already registered.", "info")
-        return redirect(url_for("views.profile"))
-
     form = RegisterForm(request.form)
-
     
     if request.method == 'POST' and form.validate():
         email=form.email.data
@@ -66,6 +62,7 @@ def signup():
                     form.password.data, is_active=True)
         db.session.add(new_user)
         db.session.commit()
+        #token = generate_token(user.email)
         flash('Thanks for registering')
         return redirect(url_for('auth.login'))
     flash_errors(form)
@@ -78,4 +75,22 @@ def logout():
     logout_user()
     return redirect(url_for('views.index'))
 
-
+'''
+@auth.route("/confirm/<token>")
+@login_required
+def confirm_email(token):
+    if current_user.is_confirmed:
+        flash("Account already confirmed.", "success")
+        return redirect(url_for("core.home"))
+    email = confirm_token(token)
+    user = User.query.filter_by(email=current_user.email).first_or_404()
+    if user.email == email:
+        user.is_confirmed = True
+        user.confirmed_on = datetime.now()
+        db.session.add(user)
+        db.session.commit()
+        flash("You have confirmed your account. Thanks!", "success")
+    else:
+        flash("The confirmation link is invalid or has expired.", "danger")
+    return redirect(url_for("core.home"))
+'''
