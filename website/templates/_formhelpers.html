@@ -33,7 +33,7 @@
     {% elif field.type == 'FileField' %}
     {% set class_ = class_ + ' input-file form-control' %}
     {% endif %}
-    {% if field.type == 'SelectField' %}
+    {% if field.type in('SelectField', 'BooleanField') %}
     {{ field(class_=class_, **kwargs) }}
     {% else %}
     {{ field(class_=class_, placeholder=placeholder, **kwargs) }}
