@@ -27,9 +27,9 @@ a {
     all: unset;
 }
 
-input {
+/*input {
     all: unset;
-}
+}*/
 
 button {
     all: unset;
@@ -175,6 +175,26 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+#email{
+    all: unset;
+}
+
+#password{
+    all: unset;
+}
+
+#username{
+    all: unset;
+}
+
+#confirm{
+    all: unset;
+}
+
+#search{
+    all: unset;
 }
 
 .form-group {
