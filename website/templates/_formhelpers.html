@@ -19,10 +19,8 @@
 
     {% if field.type == 'BooleanField' %}
     <div class="checkbox">
-        <label>
-            {{ field(class_=class_, **kwargs) }}
-            {{ field.label.text|safe }}
-        </label>
+        {{ field(class_=class_, **kwargs) }}
+        {{ field.label.text|safe }}
     </div>
     {% elif field.type == 'PasswordField' %}
         {{ field(class_=class_, placeholder=placeholder, **kwargs) }}
