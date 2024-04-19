@@ -1,7 +1,7 @@
 from itsdangerous import URLSafeTimedSerializer
 import sys
-#sys.path.insert(1, '../')
-from main import app
+sys.path.insert(1, '../')
+#from main import app
 
 
 def generate_token(email):

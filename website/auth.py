@@ -75,13 +75,13 @@ def logout():
     logout_user()
     return redirect(url_for('views.index'))
 
-'''
+
 @auth.route("/confirm/<token>")
 @login_required
 def confirm_email(token):
     if current_user.is_confirmed:
         flash("Account already confirmed.", "success")
-        return redirect(url_for("core.home"))
+        return redirect(url_for('views.profile'))
     email = confirm_token(token)
     user = User.query.filter_by(email=current_user.email).first_or_404()
     if user.email == email:
@@ -89,8 +89,16 @@ def confirm_email(token):
         user.confirmed_on = datetime.now()
         db.session.add(user)
         db.session.commit()
-        flash("You have confirmed your account. Thanks!", "success")
+        flash("You have confirmed your account. Thanks!", "happy")
     else:
-        flash("The confirmation link is invalid or has expired.", "danger")
-    return redirect(url_for("core.home"))
-'''
+        flash("The confirmation link is invalid or has expired.", "error")
+    return redirect(url_for("views.profile"))
+
+@auth.route("/test")
+def test():
+    user = User.query.filter_by(email="koper@koper.pl").first_or_404()
+    user.is_admin = True
+    db.session.add(user)
+    db.session.commit()
+    flash("poszlo", "happy")
+    return redirect(url_for("views.profile"))
