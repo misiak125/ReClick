@@ -62,7 +62,7 @@ def signup():
                     form.password.data, is_active=True)
         db.session.add(new_user)
         db.session.commit()
-        #token = generate_token(user.email)
+        token = generate_token(user.email)
         flash('Thanks for registering')
         return redirect(url_for('auth.login'))
     flash_errors(form)
@@ -92,13 +92,4 @@ def confirm_email(token):
         flash("You have confirmed your account. Thanks!", "happy")
     else:
         flash("The confirmation link is invalid or has expired.", "error")
-    return redirect(url_for("views.profile"))
-
-@auth.route("/test")
-def test():
-    user = User.query.filter_by(email="koper@koper.pl").first_or_404()
-    user.is_admin = True
-    db.session.add(user)
-    db.session.commit()
-    flash("poszlo", "happy")
     return redirect(url_for("views.profile"))

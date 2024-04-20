@@ -30,3 +30,5 @@ toml
 tomli
 typing_extensions
 zipp
+
+Flask-Email
