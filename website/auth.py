@@ -6,6 +6,7 @@ from flask_login import login_user, login_required, current_user, logout_user, L
 from .forms import LoginForm, RegisterForm
 from .token import confirm_token, generate_token
 from .utils.decorators import logout_required
+from datetime import datetime
 
 auth=Blueprint('auth', __name__)
 
