@@ -40,9 +40,9 @@ body {
     font-family: "Jaturat";
     font-weight: 900;
     color: white;
-
     margin: 0px;
     padding: 0px;
+    overflow: hidden;
 }
 
 nav {
