@@ -5,11 +5,10 @@ from .models import User
 import getpass
 from flask import Blueprint
 import datetime
-
-def is_truthy(string: str) -> bool:
-    return string.lower() in ["tak", "t", "yes", "y", "1"]
+from .utils.functions import is_truthy
 
 user_cli = Blueprint('user', __name__)
+
 
 @user_cli.cli.command("create_admin")
 @with_appcontext

@@ -4,19 +4,15 @@ from werkzeug.security import check_password_hash
 from . import db
 from flask_login import login_user, login_required, current_user, logout_user, LoginManager
 from .forms import LoginForm, RegisterForm
-from .token import confirm_token, generate_token
+from .utils.token import confirm_token, generate_token
 from .utils.decorators import logout_required
 from datetime import datetime
+from .utils.functions import flash_errors
 
 auth=Blueprint('auth', __name__)
 
 login_manager = LoginManager()
 
-def flash_errors(form):
-    """Flashes form errors"""
-    for field, errors in form.errors.items():
-        for error in errors:
-            flash(error, 'error')
 
 
 @auth.route('/login', methods=['POST', 'GET'])
