@@ -1,5 +1,18 @@
 {% extends "base.html" %} {% block content %}
 
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="error-box">
+        <span class="material-symbols-outlined" id="error-icon">
+            error
+        </span>
+        <div>
+            {{ messages[0] }}
+        </div>
+    </div>
+{% endif %}
+{% endwith %}
+
 <div class="text-center">
   <h1>Welcome!</h1>
   <br />

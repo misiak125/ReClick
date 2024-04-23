@@ -88,7 +88,6 @@ def logout():
 
 
 @auth.route("/confirm/<token>")
-@login_required
 def confirm_email(token):
     if current_user.is_confirmed:
         flash("Account already confirmed.", "info")
@@ -123,6 +122,6 @@ def resend_confirmation():
     confirm_url = url_for("auth.confirm_email", token=token, _external=True)
     html = render_template("confirm_email.html", confirm_url=confirm_url)
     subject = "Please confirm your email"
-    send_email(current_user.email, subject, html)
+    send_confirm_email(current_user.email, subject, html)
     flash("A new confirmation email has been sent.", "happy")
     return redirect(url_for("auth.inactive"))

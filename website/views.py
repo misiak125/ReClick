@@ -2,6 +2,7 @@ from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from . import db
 from flask_mailman import EmailMessage
+from .utils.decorators import active_login_required
 
 views=Blueprint('views', __name__)
 
@@ -10,17 +11,8 @@ def index():
     return render_template('index.html')
 
 @views.route('/profile')
-@login_required
+@active_login_required
 def profile():
-    return render_template('profile.html', name=current_user.name) #test
+    return render_template('profile.html', name=current_user.name)
 
-@views.route('/testmail')
-def testmail():
-    msg = EmailMessage(
-        'hej Goral',
-        'hejka kckc',
-        're.click@outlook.com',
-        ['lim81726@ilebi.com']
-    )
-    msg.send()
-    return "chyba wyslane"
+

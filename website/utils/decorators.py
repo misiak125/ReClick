@@ -13,9 +13,12 @@ def logout_required(func):
 
     return decorated_function
 
-def active_required(func):
+def active_login_required(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
+        if current_user.is_authenticated is False:
+            flash("Please log in to access this page.", "info")
+            return redirect(url_for("views.profile"))
         if current_user.is_confirmed is False:
             flash("Please confirm your account", "error")
             return redirect(url_for("auth.inactive"))
