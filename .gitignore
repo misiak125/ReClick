@@ -5,3 +5,4 @@ todo
 .vscode
 website/utils/__pycache__
 __pycache__
+*.pyc

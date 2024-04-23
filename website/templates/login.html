@@ -2,45 +2,35 @@
 {% from "_formhelpers.html" import render_field %}
 {% block content %}
 <div class="login-box">
-    
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="error-box">
-                <span class="material-symbols-outlined" id="error-icon">
-                    error
-                </span>
-                <div>
-                    {{ messages[0] }}
-                </div>
-            </div>
-        {% endif %}
-    {% endwith %}
-
     <div class="login-title">
         LOGIN
     </div>
     <div class="login-line"></div>
 
-    <form role="form" method="POST" action="">
+    <form class="login-form" role="form" method="POST" action="">
         {{ form.csrf_token }}
-        <div class="login-input">
-            <!--<div class="login-input-title">
-                email adress:
-            </div>-->
+        <div class="login-input-box">
             {{ render_field(form.email) }}
         </div>
-        <div class="login-input">
-            <!--<div class="login-input-title">
-                password:
-            </div>-->
+        <div class="login-input-box">
             {{ render_field(form.password) }}
+            <button class="login-show-password-button" type="button" onclick="togglePasswordVisibilityLogin('password')">
+                <span class="material-symbols-outlined" id="key-icon">
+                    visibility
+                </span>
+            </button>
         </div>
+
+        <div class="login-rememberme-box">
+            {{ render_field(form.remember_me) }}
+        </div>
+
 
         <div class="login-button-box">
             <button class="login-button" id="login-button-login">
                 LOGIN
             </button>
-            <a href="{{ url_for("auth.signup") }}" class="login-button" id="login-button-register">
+            <a href="{{ url_for('auth.signup') }}" class="login-button" id="login-button-register">
                 SIGN UP
             </a>
         </div>

@@ -8,7 +8,7 @@
 {% set class_ = class_ + ' required' %}
 {% endif %}
 
-<div class="form-group {% if field.errors %}error{% endif %}">
+<div class="form-group{% if field.errors %} error{% endif %}">
 
     {% if with_label %}
     <label for="{{ field.id }}"
@@ -19,43 +19,30 @@
 
     {% if field.type == 'BooleanField' %}
     <div class="checkbox">
-        <label>
-            {{ field(class_=class_, **kwargs) }}
-            {{ field.label.text|safe }}
-        </label>
+        {{ field(class_=class_, **kwargs) }}
+        {{ field.label.text|safe }}
     </div>
+    {% elif field.type == 'PasswordField' %}
+        {{ field(class_=class_, placeholder=placeholder, **kwargs) }}
+       
     {% else %}
-
-    {% if field.type in ('StringField', 'EmailField', 'TextField', 'TextAreaField', 'PasswordField',
-                         'IntegerField') %}
-
+    {% if field.type in ('StringField', 'EmailField', 'TextField', 'TextAreaField', 'IntegerField') %}
     {% set class_ = class_ + ' input is-large' %}
-
     {% elif field.type == 'FileField' %}
-
     {% set class_ = class_ + ' input-file form-control' %}
-
     {% endif %}
-
-    {% if field.type == 'SelectField' %}
-
+    {% if field.type in('SelectField', 'BooleanField') %}
     {{ field(class_=class_, **kwargs) }}
-
     {% else %}
-
     {{ field(class_=class_, placeholder=placeholder, **kwargs) }}
-
     {% endif %}
-
     {% endif %}
-<!-- 
-    {% if field.errors %}
-    <span class="error help-inline">{{ field.errors|join(', ') }}</span> 
-    {% endif %}-->
 
     {% if field.description %}
     <p class="help-block">{{ field.description|safe }}</p>
     {% endif %}
 
 </div>
+
+
 {%- endmacro %}

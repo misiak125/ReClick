@@ -30,7 +30,7 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if not user or not check_password_hash(user.password, password):
-            flash('Please check your login details and try again.')
+            flash('Please check your login details and try again.', 'error')
             return redirect(url_for('auth.login'))
         
         login_user(user, remember=remember)
@@ -53,13 +53,14 @@ def signup():
         user = User.query.filter_by(email=email).first()
 
         if user:
-            flash('Email address already exists')
+            flash('Email address already exists', 'error')
             return redirect(url_for('auth.signup'))
             
         new_user = User(form.email.data, form.username.data,
                     form.password.data, is_confirmed=True)
         db.session.add(new_user)
         db.session.commit()
+        
         #email confirmation
         print("test1")
         token = generate_token(new_user.email)
@@ -74,7 +75,8 @@ def signup():
         flash("A confirmation email has been sent via email.", "happy")
         return redirect(url_for("auth.inactive"))
 
-        flash('Thanks for registering')
+        flash('Thanks for registering', 'happy')
+
         return redirect(url_for('auth.login'))
     flash_errors(form)
     return render_template('signup.html', form=form)

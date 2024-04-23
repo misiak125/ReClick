@@ -27,9 +27,9 @@ a {
     all: unset;
 }
 
-input {
+/*input {
     all: unset;
-}
+}*/
 
 button {
     all: unset;
@@ -40,7 +40,6 @@ body {
     font-family: "Jaturat";
     font-weight: 900;
     color: white;
-
     margin: 0px;
     padding: 0px;
 }
@@ -123,15 +122,19 @@ nav {
 
 
 
-
-
 .login-box {
     /*background-color: darkkhaki;*/
     
     min-width: 100px;
     min-height: 100px;
-    margin-top: 7vw;
+    margin-top: 100px;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -159,7 +162,7 @@ nav {
     margin-bottom: 30px;
 }
 
-.login-input {
+.login-input-box {
     background-color: #1b1b1b;
     font-size: 24px;
 
@@ -170,12 +173,55 @@ nav {
 
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
-.login-input-input {
-    margin: 0px 20px;
+#email{
+    all: unset;
+}
+
+#password{
+    all: unset;
+}
+
+#username{
+    all: unset;
+}
+
+#confirm{
+    all: unset;
+}
+
+#search{
+    all: unset;
+}
+
+.form-group {
     flex: 1;
-    min-width: 10px;
+
+    display: flex;
+}
+
+input {
+    flex: 1;
+}
+
+input::placeholder {
+    color: #707070;
+}
+
+
+.login-show-password-button {
+    color: #707070;
+    margin-left: 10px;
+}
+
+.login-show-password-button:hover {
+    cursor: pointer;
+}
+
+#key-icon {
+    font-size: 36px;
 }
 
 .login-button-box {
@@ -191,7 +237,7 @@ nav {
 }
 
 .login-button {
-    background-color: darkcyan;
+    /*background-color: darkcyan;*/
     border-radius: 30px;
 
     width: 40%;
@@ -226,7 +272,7 @@ nav {
 
 .home-text {
     font-family: "Lovelo Line";
-    font-size: 8vw;
+    font-size: min(15vw, 15vh);
     text-align: center;
     text-shadow: 
         0px 0px 1vw,
@@ -238,24 +284,31 @@ nav {
 }
 
 #home-button {
-    width: 25vw;
-    font-size: 8vw;
+    width: min(45vw, 45vh);
+    font-size: min(15vw, 15vh);
     border-radius: 10vw;
     
     position: absolute;
-    top: 35vw;
-    left: 20vw;
+    bottom: 5vw;
+    left: 10vw;
 }
 
 #home-spike {
     position: absolute;
-    top: 21vw;
-    left: 64vw;
-    max-width: 35vw;
+    right:2vh;
+    bottom: 2vw;
+    width: min(60vh, 60vw)
 }
 
-.error-box {
-    background-color: #b51b35;
+.message-box-box {
+    width: 100vw;
+    margin-top: 50px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.message-box {
     border-radius: 100vw;
     font-size: 24px;
 
@@ -269,7 +322,123 @@ nav {
     align-items: center;
 }
 
-#error-icon {
+.message-box-happy {
+    background-color: #23a837;
+}
+
+.message-box-info {
+    background-color: #707070;
+}
+
+.message-box-error {
+    background-color: #b51b35;
+}
+
+#message-icon {
     font-size: 52px;
     padding-right: 30px;
+}
+
+.users-box {
+    /*background-color: lightcoral;*/
+
+    width: 100vw;
+    margin-top: 60px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.users-title {
+    /*background-color: aquamarine;*/
+    font-size: 72px;
+
+    margin: 10px;
+    max-height: 1em;
+    
+    display: flex;
+    align-items: center;
+}
+
+.users-line {
+    background: rgb(18,194,233);
+    background: linear-gradient(100deg, #0097B2 0%, #7ED957 100%);
+    border-radius: 10px;
+    
+    max-width: 1100px;
+    width: 87vw;
+    height: 10px;
+    margin-bottom: 30px;
+}
+
+.users-search-box {
+    /*background-color: darkgreen;*/
+
+    max-width: 800px;
+    width: 75vw;
+
+    display: flex;
+    align-items: center;
+}
+
+.users-search-button {
+    border-radius: 30px;
+    background: rgb(18,194,233);
+    background: linear-gradient(100deg, #0097B2 0%, #7ED957 100%);
+    font-size: 28px;
+
+    width: 40%;
+    min-width: fit-content;
+    height: fit-content;
+    flex: 1;
+    padding: 10px 20px;
+    margin-left: 20px;
+
+    text-align: center;
+}
+
+.users-search-button:hover {
+    cursor: pointer;
+}
+
+.users-search-input {
+    background-color: #1b1b1b;
+    font-size: 20px;
+
+    padding: 15px;
+    margin: 10px;
+    max-width: 600px;
+    width: 75vw;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.users-table {
+    border-collapse: collapse;
+    font-size: 20px;
+
+    width: 80vw;
+    max-width: 900px;
+    margin-top: 50px;
+
+    text-align: center;
+}
+
+.users-table-head {
+    background: rgb(18,194,233);
+    background: linear-gradient(100deg, #0097B2 0%, #7ED957 100%);
+}
+
+.users-table th {
+    font-size: 26px;
+
+    padding: 10px 0px;
+}
+
+.users-table td {
+    color: #b5b5b5;
+    padding: 10px 0px;
 }

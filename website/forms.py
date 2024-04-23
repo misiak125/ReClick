@@ -45,3 +45,7 @@ class RegisterForm(FlaskForm):
             self.password.errors.append("Passwords must match")
             return False
         return True
+
+
+class SearchUserForm(FlaskForm):
+    search=StringField("search user", validators=[Length(min=0, max=25)])
