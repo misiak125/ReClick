@@ -17,10 +17,10 @@ def profile():
 @views.route('/testmail')
 def testmail():
     msg = EmailMessage(
-        'hejhej temat',
-        'hejka tresc',
+        'hej Goral',
+        'hejka kckc',
         're.click@outlook.com',
-        ['kapi.misiak@gmail.com']
+        ['lim81726@ilebi.com']
     )
     msg.send()
     return "chyba wyslane"

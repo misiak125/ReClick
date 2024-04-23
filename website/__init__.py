@@ -18,6 +18,7 @@ def create_app():
     app.config['MAIL_PASSWORD'] = ""
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
+    app.config['SECURITY_PASSWORD_SALT'] = "devdev"
 
     mail=Mail(app)
     db.init_app(app)
