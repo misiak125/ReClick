@@ -13,7 +13,6 @@ idna
 itsdangerous
 Jinja2
 MarkupSafe
-smtplib
 SQLAlchemy
 typing_extensions
 Werkzeug
