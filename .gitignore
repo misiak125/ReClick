@@ -1,6 +1,8 @@
 .venv
-website/__pycache__/
+website/__pycache__
 instance/database.db
 todo
-*.pyc
 .vscode
+website/utils/__pycache__
+__pycache__
+*.pyc
