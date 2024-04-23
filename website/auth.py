@@ -57,7 +57,7 @@ def signup():
             return redirect(url_for('auth.signup'))
             
         new_user = User(form.email.data, form.username.data,
-                    form.password.data, is_confirmed=False)
+                    form.password.data, is_confirmed=True)
         db.session.add(new_user)
         db.session.commit()
         #email confirmation
