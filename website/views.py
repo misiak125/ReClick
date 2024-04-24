@@ -24,9 +24,9 @@ def users():
     if request.method == 'POST':
         username = form.search.data
         if username:
-            users = User.query.filter(User.name.like(f'%{username}%')).all()
+            users = User.query.filter(User.name.like(f'%{username}%')).filter_by(is_confirmed=True).all()
         else:
-            users = User.query.all()
+            users = User.query.filter_by(is_confirmed=True).all()
     else:
         users = User.query.all()
     return render_template('users.html', users=users, form=form)
