@@ -178,18 +178,22 @@ nav {
 
 #email{
     all: unset;
+    flex: 1;
 }
 
 #password{
     all: unset;
+    flex: 1;
 }
 
 #username{
     all: unset;
+    flex: 1;
 }
 
 #confirm{
     all: unset;
+    flex: 1;
 }
 
 #search{
@@ -200,10 +204,11 @@ nav {
     flex: 1;
 
     display: flex;
+    justify-content: left;
 }
 
-input {
-    flex: 1;
+.input {
+    width: 100%;
 }
 
 input::placeholder {

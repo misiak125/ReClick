@@ -28,5 +28,5 @@ def users():
         else:
             users = User.query.filter_by(is_confirmed=True).all()
     else:
-        users = User.query.all()
-    return render_template('users.html', users=users, form=form)
+        users = User.query.filter_by(is_confirmed=True).all()
+    return render_template('users.html', users=users, form=form) 
