@@ -198,6 +198,7 @@ nav {
 
 #search{
     all: unset;
+    flex: 1;
 }
 
 .form-group {
