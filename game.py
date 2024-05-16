@@ -37,30 +37,23 @@ MAX_BULLETS = 3
 
 YELLOW_SPACESHIP_IMAGE = pygame.image.load(os.path.join('Assets', 'spaceship_yellow.png'))
 YELLOW_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(YELLOW_SPACESHIP_IMAGE, (SPACESHIP_WIDTH, SPACESHIP_HEIGHT)), 90)
-#RED_SPACESHIP_IMAGE = pygame.image.load(os.path.join('Assets', 'spaceship_red.png'))
-#RED_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(RED_SPACESHIP_IMAGE, (SPACESHIP_WIDTH, SPACESHIP_HEIGHT)), 270)
 
 SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'space.png')), (WIDTH, HEIGHT))
 
 def draw_window(yellow, yellow_bullets, yellow_health, enemies, score, enemy_bullets):
 
     WIN.blit(SPACE, (0, 0))
-    #pygame.draw.rect(WIN, BLACK, BORDER)
 
     score_text = HEALTH_FONT.render("SCORE:" + str(score), 1, WHITE)
     yellow_health_text = HEALTH_FONT.render("Health:" + str(yellow_health), 1, WHITE)
     WIN.blit(score_text, (WIDTH - score_text.get_width() - 10, 10))
     WIN.blit(yellow_health_text, (10, 10))
-
-    #WIN.blit(RED_SPACESHIP, (red.x, red.y))
     WIN.blit(YELLOW_SPACESHIP, (yellow.x, yellow.y))
 
-    #for bullet in red_bullets:
-        #pygame.draw.rect(WIN, RED, bullet)
     for bullet in yellow_bullets:
         pygame.draw.rect(WIN, YELLOW, bullet)
     for enemy in enemies:
-        pygame.draw.rect(WIN, RED, enemy)
+        pygame.draw.rect(WIN, RED, enemy[0])
     for bullet in enemy_bullets:
         pygame.draw.rect(WIN, RED, bullet)
 
@@ -86,7 +79,7 @@ def handle_bullets(yellow_bullets, yellow, enemies, enemy_bullets): # sterowanie
     for bullet in yellow_bullets:
         bullet.x += BULLET_VEL 
         for enemy in enemies:
-            if enemy.colliderect(bullet):
+            if enemy[0].colliderect(bullet):
                 pygame.event.post(pygame.event.Event(POINT))
                 yellow_bullets.remove(bullet)
                 enemies.remove(enemy)
@@ -94,7 +87,7 @@ def handle_bullets(yellow_bullets, yellow, enemies, enemy_bullets): # sterowanie
         if bullet.x > WIDTH:
             yellow_bullets.remove(bullet)
     for enemy in enemies:
-        if yellow.colliderect(enemy):
+        if yellow.colliderect(enemy[0]):
             pygame.event.post(pygame.event.Event(YELLOW_HIT))
             enemies.remove(enemy)
     for bullet in enemy_bullets:
@@ -102,34 +95,44 @@ def handle_bullets(yellow_bullets, yellow, enemies, enemy_bullets): # sterowanie
         if yellow.colliderect(bullet):
             pygame.event.post(pygame.event.Event(YELLOW_HIT))
             enemy_bullets.remove(bullet)
-    #for bullet in red_bullets:
-    #    bullet.x -= BULLET_VEL 
-    #    if yellow.colliderect(bullet):
-    #        pygame.event.post(pygame.event.Event(YELLOW_HIT))
-    #        red_bullets.remove(bullet)
-    #    elif bullet.x < 0:
-    #        red_bullets.remove(bullet)
+
 
 def enemies_movement(enemies): 
     for enemy in enemies:
-        opt = random.randint(1, 4)
-        if opt == 1 and enemy.y - ENEMY_VEL > 10: # W -> góra
-            enemy.y = enemy.y - ENEMY_VEL
-        elif opt == 2 and enemy.y + ENEMY_VEL + ENEMY_HEIGHT < HEIGHT - 15: # S -> dół
-            enemy.y = enemy.y + ENEMY_VEL
-        elif opt == 3 and enemy.x - ENEMY_VEL > 0: # A -> lewo
-            enemy.x = enemy.x - ENEMY_VEL
-        elif opt == 4 and enemy.x + ENEMY_VEL + ENEMY_WIDTH < HEIGHT: # D => prawo
-            enemy.x = enemy.x + ENEMY_VEL
+        opt = enemy[1]
+        if opt == 3: # W -> góra
+            if enemy[0].y - ENEMY_VEL > 10:
+                enemy[0].y = enemy[0].y - ENEMY_VEL
+            else:
+                enemy[1] = 1
+                #enemy = (enemy[0], 1)
+        elif opt == 1: # S -> dół
+            if enemy[0].y + ENEMY_VEL + ENEMY_HEIGHT < HEIGHT - 15:
+                enemy[0].y = enemy[0].y + ENEMY_VEL
+            else:
+                enemy[1] = 3
+                #enemy = (enemy[0], 3)
+        elif opt == 2: # A -> lewo
+            if enemy[0].x - ENEMY_VEL > 0:
+                enemy[0].x = enemy[0].x - ENEMY_VEL
+            else:
+                enemy[1] = 4
+                #enemy = (enemy[0], 4)
+        elif opt == 4: # D => prawo
+            if enemy[0].x + ENEMY_VEL + ENEMY_WIDTH < WIDTH:
+                enemy[0].x = enemy[0].x + ENEMY_VEL
+            else:
+                enemy[1] = 2
+                #enemy = (enemy[0], 2)
 
 def create_bullets(enemies, enemy_bullets):
     for enemy in enemies:
-        bullet = pygame.Rect(enemy.x, enemy.y + enemy.height//2 - 2, 10, 5)
-        enemy_bullets.append(bullet)       
+        bullet = pygame.Rect(enemy[0].x, enemy[0].y + enemy[0].height//2 - 2, 10, 5)
+        enemy_bullets.append(bullet)    
+
 
 def main():
 
-    #red = pygame.Rect(700, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
     yellow = pygame.Rect(100,300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
 
     yellow_bullets = []
@@ -138,8 +141,6 @@ def main():
 
     spawn = 1 # za ile czasu zrespi się enemy
     blast = 1 # za ile czasi enemies strzela
-
-    #red_bullets = []
 
     yellow_health = 10
     score = 0
@@ -165,20 +166,36 @@ def main():
                 if event.key == pygame.K_SPACE and len(yellow_bullets) < MAX_BULLETS:
                     bullet = pygame.Rect(yellow.x + yellow.width, yellow.y + yellow.height//2 - 2, 10, 5)
                     yellow_bullets.append(bullet)
-                #if event.key == pygame.K_RCTRL and len(red_bullets) < MAX_BULLETS:
-                #    bullet = pygame.Rect(red.x, red.y + red.height//2 - 2, 10, 5)
-                #    red_bullets.append(bullet)
 
-            #if event.type == RED_HIT:
-            #    red_health -= 1
             if event.type == YELLOW_HIT:
                 yellow_health -= 1
             
             if event.type == SPAWN_ENEMY:
-                x = random.randint(10, 850)
-                y = random.randint(60, 450)
-                enemy = pygame.Rect(x, y, ENEMY_WIDTH, ENEMY_HEIGHT)
-                if yellow.colliderect(enemy):
+                x = 0
+                y = 0
+                where = random.randint(0, 2*(WIDTH+HEIGHT))
+                route = 0
+                if where >= 0 and where <= WIDTH: # góra
+                    route = 1
+                    x = where
+                    y = 0
+                elif where > WIDTH and where <= WIDTH + HEIGHT: # prawo
+                    route = 2
+                    x = WIDTH - ENEMY_WIDTH
+                    y = where - WIDTH
+                elif where > WIDTH + HEIGHT and where <= 2*WIDTH + HEIGHT: # dół
+                    route = 3
+                    x = where-WIDTH-HEIGHT
+                    y = HEIGHT - ENEMY_HEIGHT
+                else: # lewo
+                    route  = 4
+                    x = 0
+                    y = where - 2*WIDTH - HEIGHT
+                print(x, y, where, route)
+                rec = pygame.Rect(x, y, ENEMY_WIDTH, ENEMY_HEIGHT)
+                xd = (rec, route)
+                enemy = list(xd)
+                if yellow.colliderect(enemy[0]):
                     yellow_health += 1
                     #print("HIT")
                 enemies.append(enemy)
@@ -189,18 +206,15 @@ def main():
 
 
         winner_text = ""
-        #if red_health <= 0:
-        #    winner_text = "YELLOW WINS"
         if yellow_health <= 0:
             winner_text = "LOSER"
         if winner_text != "":
-            draw_window(yellow, yellow_bullets, yellow_health, enemies, score)
-            draw_winner(winner_text, yellow_health)
+            draw_window(yellow, yellow_bullets, yellow_health, enemies, score, enemy_bullets)
+            draw_winner(winner_text)
             break
 
         keys_pressed = pygame.key.get_pressed()
         yellow_movement(keys_pressed, yellow)
-        #red_movement(keys_pressed, red)
           
         handle_bullets(yellow_bullets, yellow, enemies, enemy_bullets)
         enemies_movement(enemies)
