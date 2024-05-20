@@ -42,7 +42,7 @@ YELLOW_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(YELLOW_SPACESH
 
 SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'space.png')), (WIDTH, HEIGHT))
 
-def draw_window(yellow, yellow_bullets_right, yellow_bullets_left, yellow_bullets_up, yellow_bullets_down, yellow_health, enemies, score, enemy_bullets):
+def draw_window(yellow, yellow_bullets_right, yellow_bullets_left, yellow_bullets_up, yellow_bullets_down, yellow_health, enemies, score, enemy_bullets_right, enemy_bullets_left, enemy_bullets_up, enemy_bullets_down):
 
     WIN.blit(SPACE, (0, 0))
 
@@ -60,9 +60,17 @@ def draw_window(yellow, yellow_bullets_right, yellow_bullets_left, yellow_bullet
         pygame.draw.rect(WIN, YELLOW, bullet)
     for bullet in yellow_bullets_down:
         pygame.draw.rect(WIN, YELLOW, bullet)
+
     for enemy in enemies:
         pygame.draw.rect(WIN, RED, enemy[0])
-    for bullet in enemy_bullets:
+
+    for bullet in enemy_bullets_right:
+        pygame.draw.rect(WIN, RED, bullet)
+    for bullet in enemy_bullets_left:
+        pygame.draw.rect(WIN, RED, bullet)
+    for bullet in enemy_bullets_up:
+        pygame.draw.rect(WIN, RED, bullet)
+    for bullet in enemy_bullets_down:
         pygame.draw.rect(WIN, RED, bullet)
 
     pygame.display.update()
@@ -83,7 +91,7 @@ def yellow_movement(keys_pressed, yellow): # sterowanie yellow
     if keys_pressed[pygame.K_s] and yellow.y + VEL < HEIGHT - yellow.height - 15:    # DOWN
         yellow.y += VEL
 
-def handle_bullets(yellow_bullets_right, yellow_bullets_left, yellow_bullets_up, yellow_bullets_down, yellow, enemies, enemy_bullets): # sterowanie pociskami i sprawdzanie kolizji z enemies
+def handle_bullets(yellow_bullets_right, yellow_bullets_left, yellow_bullets_up, yellow_bullets_down, yellow, enemies, enemy_bullets_right, enemy_bullets_left, enemy_bullets_up, enemy_bullets_down): # sterowanie pociskami i sprawdzanie kolizji z enemies
     for bullet in yellow_bullets_right: # RIGHT
         bullet.x += BULLET_VEL 
         for enemy in enemies:
@@ -132,11 +140,30 @@ def handle_bullets(yellow_bullets_right, yellow_bullets_left, yellow_bullets_up,
         if yellow.colliderect(enemy[0]):
             pygame.event.post(pygame.event.Event(YELLOW_HIT))
             enemies.remove(enemy)
-    for bullet in enemy_bullets:
+
+    for bullet in enemy_bullets_right:
+        bullet.x += BULLET_VEL
+        if yellow.colliderect(bullet):
+            pygame.event.post(pygame.event.Event(YELLOW_HIT))
+            enemy_bullets_right.remove(bullet)
+    
+    for bullet in enemy_bullets_left:
         bullet.x -= BULLET_VEL
         if yellow.colliderect(bullet):
             pygame.event.post(pygame.event.Event(YELLOW_HIT))
-            enemy_bullets.remove(bullet)
+            enemy_bullets_left.remove(bullet)
+    
+    for bullet in enemy_bullets_up:
+        bullet.y -= BULLET_VEL
+        if yellow.colliderect(bullet):
+            pygame.event.post(pygame.event.Event(YELLOW_HIT))
+            enemy_bullets_up.remove(bullet)
+    
+    for bullet in enemy_bullets_down:
+        bullet.y += BULLET_VEL
+        if yellow.colliderect(bullet):
+            pygame.event.post(pygame.event.Event(YELLOW_HIT))
+            enemy_bullets_down.remove(bullet)
 
 
 def enemies_movement(enemies): 
@@ -147,41 +174,68 @@ def enemies_movement(enemies):
                 enemy[0].y = enemy[0].y - ENEMY_VEL
             else:
                 enemy[1] = 1
-                #enemy = (enemy[0], 1)
         elif opt == 1: # S -> dół
             if enemy[0].y + ENEMY_VEL + ENEMY_HEIGHT < HEIGHT - 15:
                 enemy[0].y = enemy[0].y + ENEMY_VEL
             else:
                 enemy[1] = 3
-                #enemy = (enemy[0], 3)
         elif opt == 2: # A -> lewo
             if enemy[0].x - ENEMY_VEL > 0:
                 enemy[0].x = enemy[0].x - ENEMY_VEL
             else:
                 enemy[1] = 4
-                #enemy = (enemy[0], 4)
         elif opt == 4: # D => prawo
             if enemy[0].x + ENEMY_VEL + ENEMY_WIDTH < WIDTH:
                 enemy[0].x = enemy[0].x + ENEMY_VEL
             else:
                 enemy[1] = 2
-                #enemy = (enemy[0], 2)
 
-def create_bullets(enemies, enemy_bullets):
+def create_bullets(enemies, enemy_bullets_right, enemy_bullets_left, enemy_bullets_up, enemy_bullets_down, yellow):
     for enemy in enemies:
-        bullet = pygame.Rect(enemy[0].x, enemy[0].y + enemy[0].height//2 - 2, BULLET_WIDTH, BULLET_HEIGHT)
-        enemy_bullets.append(bullet)    
+        dec = enemy_bullet_decision(enemy, yellow)
+        if dec == 1: # dół
+            bullet = pygame.Rect(enemy[0].x + enemy[0].width//2 - 2, enemy[0].y + enemy[0].height, BULLET_WIDTH, BULLET_HEIGHT)
+            enemy_bullets_down.append(bullet)
+        elif dec == 2: # lewo
+            bullet = pygame.Rect(enemy[0].x - BULLET_WIDTH, enemy[0].y + enemy[0].height//2 - 2, BULLET_WIDTH, BULLET_HEIGHT)
+            enemy_bullets_left.append(bullet)
+        elif dec == 3: # góra
+            bullet = pygame.Rect(enemy[0].x + enemy[0].width//2 - 2, enemy[0].y - BULLET_HEIGHT, BULLET_WIDTH, BULLET_HEIGHT)
+            enemy_bullets_up.append(bullet)
+        else: # prawo
+            bullet = pygame.Rect(enemy[0].x + enemy[0].width, enemy[0].y + enemy[0].height//2 - 2, BULLET_WIDTH, BULLET_HEIGHT)
+            enemy_bullets_right.append(bullet) 
+
+        
+
+def enemy_bullet_decision(enemy, yellow):
+    
+    if enemy[1] == 3 or enemy[1] == 1: # góra/dół
+        
+        if yellow.x <= enemy[0].x:
+            return 2 # lewo
+        else:
+            return 4 # prawo
+    else:
+        
+        if yellow.y <= enemy[0].y:
+            return 3 # góra
+        else:
+            return 1 # dół
 
 
 def main():
 
-    yellow = pygame.Rect(100,300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
+    yellow = pygame.Rect(100,300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT) # player
 
     yellow_bullets_right = []
     yellow_bullets_left = []
     yellow_bullets_up = []
     yellow_bullets_down = []
-    enemy_bullets = []
+    enemy_bullets_right = []
+    enemy_bullets_left = []
+    enemy_bullets_up = []
+    enemy_bullets_down = []
     enemies = []
 
     spawn = 1 # za ile czasu zrespi się enemy
@@ -253,26 +307,27 @@ def main():
                     yellow_health += 1
                     #print("HIT")
                 enemies.append(enemy)
+
             if event.type == POINT:
                 score = score + 1
             if event.type == ENEMY_BLAST:
-                create_bullets(enemies, enemy_bullets)
+                create_bullets(enemies, enemy_bullets_right, enemy_bullets_left, enemy_bullets_up, enemy_bullets_down, yellow)
 
 
         winner_text = ""
         if yellow_health <= 0:
             winner_text = "SCORE: " + str(score)
         if winner_text != "":
-            draw_window(yellow, yellow_bullets_right, yellow_bullets_left, yellow_bullets_up, yellow_bullets_down, yellow_health, enemies, score, enemy_bullets)
+            draw_window(yellow, yellow_bullets_right, yellow_bullets_left, yellow_bullets_up, yellow_bullets_down, yellow_health, enemies, score, enemy_bullets_right, enemy_bullets_left, enemy_bullets_up, enemy_bullets_down)
             draw_winner(winner_text)
             break
 
         keys_pressed = pygame.key.get_pressed()
         yellow_movement(keys_pressed, yellow)
           
-        handle_bullets(yellow_bullets_right, yellow_bullets_left, yellow_bullets_up, yellow_bullets_down, yellow, enemies, enemy_bullets)
+        handle_bullets(yellow_bullets_right, yellow_bullets_left, yellow_bullets_up, yellow_bullets_down, yellow, enemies, enemy_bullets_right, enemy_bullets_left, enemy_bullets_up, enemy_bullets_down)
         enemies_movement(enemies)
-        draw_window(yellow, yellow_bullets_right, yellow_bullets_left, yellow_bullets_up, yellow_bullets_down, yellow_health, enemies, score, enemy_bullets)
+        draw_window(yellow, yellow_bullets_right, yellow_bullets_left, yellow_bullets_up, yellow_bullets_down, yellow_health, enemies, score, enemy_bullets_right, enemy_bullets_left, enemy_bullets_up, enemy_bullets_down)
     
     main()
 
