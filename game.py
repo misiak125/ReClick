@@ -281,7 +281,7 @@ def main():
         spawn += 1
         blast += 1
         change_enemy_vel(score)
-        print(ENEMY_VEL)
+        #print(ENEMY_VEL)
         #print(spawn)
         if spawn == 100:
             pygame.event.post(pygame.event.Event(SPAWN_ENEMY))
