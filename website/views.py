@@ -7,6 +7,7 @@ from .utils.decorators import active_login_required
 from .forms import SearchUserForm
 
 views=Blueprint('views', __name__)
+usersbp=Blueprint('users', __name__)
 
 @views.route('/')
 def index():

@@ -39,10 +39,11 @@ def create_app():
     
 
     from .auth import auth
-    from .views import views
+    from .views import views, usersbp
 
     app.register_blueprint(views, url_prefx='/')
     app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(usersbp, url_prefix='/user')
     
     with app.app_context():
         db.create_all()
