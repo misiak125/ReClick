@@ -59,11 +59,19 @@
                     groups
                 </span>
             </a>
-            <a href="{{ url_for('views.profile') }}" class="navbar-page-link">
-                <span class="material-symbols-outlined" id="navbar-icon">
-                    person
-                </span>
-            </a>
+            {% if not current_user.is_authenticated %}
+                <a href="{{ url_for('auth.login') }}" class="navbar-page-link">
+                    <span class="material-symbols-outlined" id="navbar-icon">
+                        person
+                    </span>
+                </a>
+            {% else %}
+                <a href="{{ url_for('views.profile') }}" class="navbar-page-link">
+                    <span class="material-symbols-outlined" id="navbar-icon">
+                        person
+                    </span>
+                </a>
+            {% endif %}
             {% if current_user.is_authenticated %}
                 <a href="{{ url_for('auth.logout') }}" class="navbar-page-link">
                     <span class="material-symbols-outlined" id="navbar-icon">
