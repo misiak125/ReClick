@@ -1,7 +1,26 @@
-<p>
-  Welcome! Thanks for signing up. Please follow this link to activate your
-  account:
-</p>
-<p><a href="{{ confirm_url }}">{{ confirm_url }}</a></p>
-<br />
-<!-- Mikorz i Boruś pliska zróbcie ładnie 👉👈🥹-->
+<!-- <a href="{{ confirm_url }}">{{ confirm_url }}</a> -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href=" {{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+
+<div class="email-box">
+    <div class="email-text">
+        Hello there, <br>
+        we recieved a request to create account linked with this e-mail adress. If you want to create account on adres.com click this button below:
+    </div>
+    <div class="email-button-box">
+        <a href="{{ confirm_url }}">
+            <div class="email-button">
+                CONFIRM EMAIL
+            </div>
+        </a>
+        <img class="email-image" src="">
+    </div>
+    <div class="email-footer">
+        If you weren't trying to create an account on adres.com, ignore this email. <br>
+        Spike Click media team
+    </div>
+</div>

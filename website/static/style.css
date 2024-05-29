@@ -448,3 +448,52 @@ input::placeholder {
     color: #b5b5b5;
     padding: 10px 0px;
 }
+
+.email-box {
+    background-color: red;
+
+    min-width: 100px;
+    min-height: 50px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.email-text {
+    background-color: greenyellow;
+
+    min-width: 100px;
+    min-height: 50px;
+}
+
+.email-button-box {
+    background-color: aqua;
+
+    min-width: 100px;
+    min-height: 50px;
+    padding: 20px;
+}
+
+.email-button {
+    background-color: darkcyan;
+
+    min-width: 100px;
+    min-height: 50px;
+}
+
+.email-image {
+    background-color: darkkhaki;
+
+    min-width: 100px;
+    min-height: 50px;
+}
+
+.email-footer {
+    background-color: darkorange;
+
+    min-width: 100px;
+    min-height: 50px;
+}
