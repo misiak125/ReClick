@@ -30,4 +30,8 @@ def users():
             users = User.query.filter_by(is_confirmed=True).all()
     else:
         users = User.query.filter_by(is_confirmed=True).all()
-    return render_template('users.html', users=users, form=form) 
+    return render_template('users.html', users=users, form=form)
+
+@views.route('/play')
+def play():
+    return render_template('game.html')
