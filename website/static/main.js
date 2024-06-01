@@ -26,7 +26,3 @@ function togglePasswordVisibilityLogin(fieldId) {
         keyIcon.textContent = "visibility";
     }
 }
-
-
-
-
