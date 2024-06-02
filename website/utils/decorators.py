@@ -8,7 +8,7 @@ def logout_required(func):
     def decorated_function(*args, **kwargs):
         if current_user.is_authenticated:
             flash("You are already logged in.", "info")
-            return redirect(url_for("views.profile"))
+            return redirect(url_for('views.userpage', userid=current_user.id))
         return func(*args, **kwargs)
 
     return decorated_function

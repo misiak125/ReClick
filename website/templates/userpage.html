@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="profile-box">
+    <div class="profile-element-data">
+        <div class="profile-icon-box">
+            <span class="material-symbols-outlined" id="profile-icon">
+                person
+            </span>
+        </div>
+        <div class="profile-data-box">
+            <div class="profile-username">
+                {{ user.name }}
+            </div>
+            <div class="profile-date-text">
+                Account created on:
+            </div>
+            <div class="profile-date">
+                {{ user.created_on.strftime('%Y-%m-%d %H:%M') }}
+            </div>
+        </div>
+    </div>
+    <div class="profile-line">
+
+    </div>
+    <div class="profile-element-info">
+        <div class="profile-info-box">
+            <div class="profile-info-text">
+                HIGH SCORE
+            </div>
+            <div class="profile-info-number">
+                {{ high_score }}
+            </div>
+        </div>
+        <div class="profile-info-box">
+            <div class="profile-info-text">
+                GAMES PLAYED
+            </div>
+            <div class="profile-info-number">
+                {{ game_count }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

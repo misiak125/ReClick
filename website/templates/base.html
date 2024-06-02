@@ -53,7 +53,7 @@
                     </span>
                 </a>
             {% else %}
-                <a href="{{ url_for('views.profile') }}" class="navbar-page-link">
+                <a href="{{ url_for('views.userpage', userid=current_user.id) }}" class="navbar-page-link">
                     <span class="material-symbols-outlined" id="navbar-icon">
                         person
                     </span>
