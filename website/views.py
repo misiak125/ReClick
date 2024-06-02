@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, abort
 from flask_login import login_required, current_user
-from .models import User
+from .models import User, Game
 from . import db
 from flask_mailman import EmailMessage
 from .utils.decorators import active_login_required
@@ -12,12 +12,6 @@ usersbp=Blueprint('users', __name__)
 @views.route('/')
 def index():
     return render_template('index.html')
-
-#@views.route('/profile')
-#@active_login_required
-#def profile():
-#    return render_template('profile.html', name=current_user.name)
-
 
 @views.route('/users', methods=['GET', 'POST'])
 @active_login_required
@@ -41,8 +35,11 @@ def play():
 @active_login_required
 def userpage(userid):
     user = User.query.get(userid)
-    game_count = 69
-    high_score = 2137
+
+    game_count = Game.query.filter_by(user_id=userid).count()
+
+    highest_score = Game.query.filter_by(user_id=userid).order_by(Game.score.desc()).first()
+    high_score = highest_score.score if highest_score else 0
 
     if user is None or not user.is_confirmed:
         abort(404)

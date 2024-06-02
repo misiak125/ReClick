@@ -2,6 +2,21 @@ from . import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
+from sqlalchemy.orm import relationship
+
+
+class Game(db.Model):
+    __tablename__ = "games"
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+
+    user = relationship("User", back_populates="games")
+
+    def __init__(self, user_id, score):
+        self.user_id = user_id
+        self.score = score
 
 class User(db.Model, UserMixin):
 
@@ -17,6 +32,8 @@ class User(db.Model, UserMixin):
     is_banned = db.Column(db.Boolean, nullable=False, default=False)
     is_confirmed = db.Column(db.Boolean, nullable=False, default=False)
     activated_on = db.Column(db.DateTime, nullable=True)
+
+    games = relationship("Game", back_populates="user")
 
     def __init__(self, email, name, password, is_admin=False, is_banned=False, is_confirmed=False, activated_on=None):
         self.email = email
