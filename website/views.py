@@ -20,6 +20,7 @@ def index():
 
 
 @views.route('/users', methods=['GET', 'POST'])
+@active_login_required
 def users():
     form = SearchUserForm(request.form)
     if request.method == 'POST':
