@@ -55,9 +55,13 @@ def signup():
         if user:
             flash('Email address already exists', 'error')
             return redirect(url_for('auth.signup'))
+        if len(form.username.data) > 15:
+            flash('Username cannot be longer than 15 characters', 'error')
+            return redirect(url_for('auth.signup'))
             
         new_user = User(form.email.data, form.username.data,
                     form.password.data, is_confirmed=True)
+
         db.session.add(new_user)
         db.session.commit()
         

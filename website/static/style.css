@@ -466,3 +466,122 @@ input::placeholder {
 
     border: none;
 }
+
+.profile-box {
+    /*background-color: darkkhaki;*/
+
+    min-width: 100px;
+    min-height: 100px;
+    margin-top: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.profile-element-data {
+    /*background-color: darkcyan;*/
+
+    /*width: min(75vw, 750px);*/
+    width: fit-content;
+    min-height: 100px;
+    padding: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-element-info {
+    /*background-color: darkcyan;*/
+
+    width: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-line {
+    background: rgb(18,194,233);
+    background: linear-gradient(100deg, #0097B2 0%, #7ED957 100%);
+    border-radius: 10px;
+    
+    max-width: 1000px;
+    width: 87vw;
+    height: 10px;
+    margin-top: 5px;
+    margin-bottom: 50px;
+}
+
+.profile-icon-box {
+    /*background-color: darkmagenta;*/
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#profile-icon {
+    font-size: 172px;
+}
+
+.profile-data-box {
+    /*background-color: darkolivegreen;*/   
+
+    width: fit-content;
+    padding-left: 20px;
+}
+
+.profile-username {
+    /*background-color: darkorange;*/
+    font-size: 58px;
+}
+
+.profile-date-text {
+    /*background-color: lightskyblue;*/
+    color: #7c7c7c;
+    
+    padding-left: 10px;
+}
+
+.profile-date {
+    /*background-color: whitesmoke;*/
+    color: #7c7c7c;
+    
+    padding-left: 10px;
+}
+
+.profile-info-box {
+    /*background-color: red;*/
+
+    width: 500px;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-info-text {
+    /*background-color: pink;*/
+    font-size: 36px;
+    /*white-space: nowrap;*/
+
+    width: fit-content;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-info-number {
+    /*background-color: brown;*/
+    font-size: 48px;
+
+    width: fit-content;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
