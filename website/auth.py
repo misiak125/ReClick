@@ -35,7 +35,7 @@ def login():
         
         login_user(user, remember=remember)
 
-        return redirect(url_for('views.profile'))
+        return redirect(url_for('views.userpage', userid=user.id))
 
     flash_errors(form)
     return render_template('login.html', form=form)
@@ -97,7 +97,7 @@ def logout():
 def confirm_email(token):
     if current_user.is_confirmed:
         flash("Account already confirmed.", "info")
-        return redirect(url_for('views.profile'))
+        return redirect(url_for('views.userpage', userid=current_user.id))
     email = confirm_token(token)
     user = User.query.filter_by(email=current_user.email).first_or_404()
     if user.email == email:
@@ -108,14 +108,14 @@ def confirm_email(token):
         flash("You have confirmed your account. Thanks!", "happy")
     else:
         flash("The confirmation link is invalid or has expired.", "error")
-    return redirect(url_for("views.profile"))
+    return redirect(url_for('views.userpage', userid=user.id))
 
 
 @auth.route("/inactive")
 @login_required
 def inactive():
     if current_user.is_confirmed:
-        return redirect(url_for("views.profile"))
+        return redirect(url_for('views.userpage', userid=current_user.id))
     return render_template("inactive.html")
     
 @auth.route("/resend_confirmation")
@@ -123,7 +123,7 @@ def inactive():
 def resend_confirmation():
     if current_user.is_confirmed:
         flash("Your account has already been confirmed.", "info")
-        return redirect(url_for("views.profile"))
+        return redirect(url_for('views.userpage', userid=current_user.id))
     token = generate_token(current_user.email)
     confirm_url = url_for("auth.confirm_email", token=token, _external=True)
     html = render_template("confirm_email.html", confirm_url=confirm_url)

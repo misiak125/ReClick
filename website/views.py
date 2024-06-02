@@ -13,10 +13,10 @@ usersbp=Blueprint('users', __name__)
 def index():
     return render_template('index.html')
 
-@views.route('/profile')
-@active_login_required
-def profile():
-    return render_template('profile.html', name=current_user.name)
+#@views.route('/profile')
+#@active_login_required
+#def profile():
+#    return render_template('profile.html', name=current_user.name)
 
 
 @views.route('/users', methods=['GET', 'POST'])
@@ -37,6 +37,7 @@ def play():
     return render_template('game.html')
 
 @views.route("/user/<int:userid>")
+@active_login_required
 def userpage(userid):
     user = User.query.get(userid)
     game_count = 69
