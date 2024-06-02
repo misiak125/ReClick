@@ -19,7 +19,7 @@
         <thead class="users-table-head">
             <tr>
                 <th>ID</th>
-                <th>Email</th>
+                <!-- <th>Email</th> -->
                 <th>Username</th>
             </tr>
         </thead>
@@ -27,8 +27,8 @@
             {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.name }}</td>
+                <!-- <td>{{ user.email }}</td> -->
+                <td><a class="users-profilelink" href="{{ url_for('views.userpage', userid=user.id) }}">{{ user.name }}</a></td>
             </tr>
             {% endfor %}
         </tbody>

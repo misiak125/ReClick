@@ -449,6 +449,10 @@ input::placeholder {
     padding: 10px 0px;
 }
 
+.users-profilelink:hover {
+    cursor: pointer;
+}
+
 .game-box {
     /*background-color: red;*/
 
