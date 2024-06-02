@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script type=text/javascript src="{{
+    url_for('static', filename='/game-size.js')
+  }}"></script>
+
+<div class="game-box" id="game-box">
+    <iframe class="game-frame" src="{{ url_for('static', filename='raw_game.html') }}"></iframe>
+</div>
+{% endblock %}
