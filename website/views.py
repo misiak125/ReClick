@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, abort
+from flask import Blueprint, render_template, request, abort, jsonify
 from flask_login import login_required, current_user
 from .models import User, Game
 from . import db
@@ -45,3 +45,20 @@ def userpage(userid):
         abort(404)
         
     return render_template('userpage.html', user=user, high_score=high_score, game_count=game_count)
+
+@views.route('/receive_score', methods=['POST'])
+def receive_score():
+    try:
+        score = request.form.get('score')
+        if score is None:
+            return jsonify({"status": "error", "message": "No score provided"}), 400
+
+        print(f"Received score: {score}")
+
+        #new_score = Score(score=int(score))
+        #db.session.add(new_score)
+        #db.session.commit()
+
+        return jsonify({"status": "success"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
