@@ -1,14 +1,18 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
 from .models import User
 from werkzeug.security import check_password_hash
 from . import db
 from flask_login import login_user, login_required, current_user, logout_user, LoginManager
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ProfilePictureForm
 from .utils.token import confirm_token, generate_token
 from .utils.decorators import logout_required
 from datetime import datetime
 from .utils.functions import flash_errors
 from .utils.mail import send_confirm_email
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import  FileStorage
+import os
+
 
 auth=Blueprint('auth', __name__)
 
@@ -46,8 +50,9 @@ def login():
 @logout_required
 def signup():
     form = RegisterForm(request.form)
-    
-    if request.method == 'POST' and form.validate():
+    profile_picture_form = ProfilePictureForm()
+
+    if request.method == 'POST' and form.validate() and profile_picture_form.validate_on_submit():
         email=form.email.data
         
         user = User.query.filter_by(email=email).first()
@@ -58,14 +63,24 @@ def signup():
         if len(form.username.data) > 15:
             flash('Username cannot be longer than 15 characters', 'error')
             return redirect(url_for('auth.signup'))
-            
+        
+        picture_file = profile_picture_form.profile_picture.data
+
+        if picture_file:
+            filename = secure_filename(picture_file.filename)
+            filepath = os.path.join(current_app.root_path, 'static/profile_pics', filename)
+            picture_file.save(filepath)
+        else:
+            filename = "default_pfp.jpg"
+
         new_user = User(form.email.data, form.username.data,
-                    form.password.data, is_confirmed=True)
+                    form.password.data, is_confirmed=True, profile_picture=filename)
 
         db.session.add(new_user)
         db.session.commit()
         
         #email confirmation
+        '''
         print("test1")
         token = generate_token(new_user.email)
         confirm_url = url_for("auth.confirm_email", token=token, _external=True)
@@ -73,17 +88,20 @@ def signup():
         html = render_template("confirm_email.html", confirm_url=confirm_url)
         subject = "Please confirm your email"
         send_confirm_email(new_user.email, subject, html)
-
+        
         login_user(new_user)
 
         flash("A confirmation email has been sent via email.", "happy")
         return redirect(url_for("auth.inactive"))
-
-        flash('Thanks for registering', 'happy')
-
+        '''
+        
+        flash("Thanks for registering!", "happy")
         return redirect(url_for('auth.login'))
+        
+        
     flash_errors(form)
-    return render_template('signup.html', form=form)
+    flash_errors(profile_picture_form)
+    return render_template('signup.html', form=form, pfp_form=profile_picture_form)
     
 
 @auth.route('/logout')

@@ -7,8 +7,11 @@
     </div>
     <div class="login-line"></div>
 
-    <form role="form" method="POST" action="">
+    <form role="form" method="POST" action="" enctype="multipart/form-data">
         {{ form.csrf_token }}
+        {{ pfp_form.csrf_token }}
+        {{ form.hidden_tag() }}
+        {{ pfp_form.hidden_tag() }}
         <div class="login-input-box">
             {{ render_field(form.email) }}
         </div>
@@ -26,12 +29,10 @@
         <div class="login-input-box">
             {{ render_field(form.confirm) }}
         </div>
-        
+        {{ render_field(pfp_form.profile_picture) }}
 
         <div class="login-button-box">
-            <button class="login-button" id="login-button-login">
-                SIGN UP
-            </button>
+            {{ form.submit(class="login-button", id="login-button-login") }}
             <a href="{{ url_for('auth.login') }}" class="login-button" id="login-button-register">
                 LOGIN
             </a>

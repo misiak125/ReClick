@@ -17,8 +17,9 @@ class User(db.Model, UserMixin):
     is_banned = db.Column(db.Boolean, nullable=False, default=False)
     is_confirmed = db.Column(db.Boolean, nullable=False, default=False)
     activated_on = db.Column(db.DateTime, nullable=True)
+    profile_picture = db.Column(db.String(200), nullable=True)
 
-    def __init__(self, email, name, password, is_admin=False, is_banned=False, is_confirmed=False, activated_on=None):
+    def __init__(self, email, name, password, is_admin=False, is_banned=False, is_confirmed=False, activated_on=None, profile_picture=None):
         self.email = email
         self.name = name
         self.password = generate_password_hash(password, method='scrypt')
@@ -27,9 +28,25 @@ class User(db.Model, UserMixin):
         self.is_banned = is_banned
         self.is_confirmed = is_confirmed
         self.activated_on = activated_on
-        
+        self.profile_picture = profile_picture
 
     def __repr__(self):
         return f"<email: {self.email}, username: {self.name}>"
     
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    body = db.Column(db.String(300))
+    timestamp = db.Column(db.DateTime)
+    user_to_id = db.Column(db.Integer)
+    user_from_id = db.Column(db.Integer)
+
+    def __init__ (self, body, timestamp, user_to_id, user_from_id):
+        body=body
+        timestamp = timestamp
+        user_to_id = user_to_id
+        user_from_id = user_from_id
+
+    def __repr__(self):
+        return '<Post %r>' % (self.body)
 
