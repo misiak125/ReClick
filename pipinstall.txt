@@ -19,3 +19,4 @@ Werkzeug
 WTForms
 python-dotenv
 MarkupSafe
+pillow

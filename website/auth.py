@@ -7,12 +7,11 @@ from .forms import LoginForm, RegisterForm, ProfilePictureForm
 from .utils.token import confirm_token, generate_token
 from .utils.decorators import logout_required
 from datetime import datetime
-from .utils.functions import flash_errors
+from .utils.functions import flash_errors, crop_image
 from .utils.mail import send_confirm_email
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 import os
-
 
 auth=Blueprint('auth', __name__)
 
@@ -70,6 +69,8 @@ def signup():
             filename = secure_filename(picture_file.filename)
             filepath = os.path.join(current_app.root_path, 'static/profile_pics', filename)
             picture_file.save(filepath)
+            crop_image(filepath)
+
         else:
             filename = "default_pfp.jpg"
 
