@@ -9,3 +9,6 @@ def flash_errors(form):
 
 def is_truthy(string: str) -> bool:
     return string.lower() in ["tak", "t", "yes", "y", "1"]
+
+def comments(self, userid):
+        return Comment.query.filter_by(to=userid)

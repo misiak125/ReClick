@@ -3,8 +3,12 @@ from flask_login import login_required, current_user
 from .models import User
 from . import db
 from flask_mailman import EmailMessage
+from flask_login import current_user
 from .utils.decorators import active_login_required
 from .forms import SearchUserForm
+from datetime import datetime
+from .models import Comment
+from .forms import CommentForm
 
 views=Blueprint('views', __name__)
 usersbp=Blueprint('users', __name__)
@@ -37,7 +41,7 @@ def users():
 def play():
     return render_template('game.html')
 
-@views.route("/user/<int:userid>")
+@views.route("/user/<int:userid>", methods=['GET', 'POST'])
 @active_login_required
 def userpage(userid):
     user = User.query.get(userid)
@@ -47,4 +51,16 @@ def userpage(userid):
     if user is None or not user.is_confirmed:
         abort(404)
         
-    return render_template('userpage.html', user=user, high_score=high_score, game_count=game_count)
+    user_comments = Comment.query.filter_by(user_to_id=user.id)
+    comment_form = CommentForm()
+   
+    if request.method == 'POST' and comment_form.validate():
+        print(comment_form.comment.data, datetime.now(), user.id, current_user.id)
+        new_comment = Comment(body=comment_form.comment.data, timestamp=datetime.now(), 
+                user_to_id=user.id, user_from_id=current_user.id, user_from_name=current_user.name)
+        print(new_comment)
+        db.session.add(new_comment)
+        db.session.commit()
+    
+    print("testestst")
+    return render_template('userpage.html', user=user, high_score=high_score, game_count=game_count, comments=user_comments, form = comment_form)
