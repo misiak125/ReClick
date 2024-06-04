@@ -1,4 +1,5 @@
 from flask import flash
+from PIL import Image
 
 def flash_errors(form):
     """Flashes form errors"""
@@ -13,7 +14,6 @@ def is_truthy(string: str) -> bool:
 def comments(self, userid):
         return Comment.query.filter_by(to=userid)
 
-'''
 def crop_image(dir):
     image = Image.open(dir)
     width, height = image.size
@@ -28,4 +28,3 @@ def crop_image(dir):
     image = image.resize(new_size)
 
     image.save(dir)
-'''
