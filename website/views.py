@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, abort
+from flask import Blueprint, render_template, request, abort, jsonify
 from flask_login import login_required, current_user
-from .models import User
+from .models import User, Game
 from . import db
 from flask_mailman import EmailMessage
 from flask_login import current_user
@@ -17,12 +17,6 @@ usersbp=Blueprint('users', __name__)
 def index():
     return render_template('index.html')
 
-#@views.route('/profile')
-#@active_login_required
-#def profile():
-#    return render_template('profile.html', name=current_user.name)
-
-
 @views.route('/users', methods=['GET', 'POST'])
 @active_login_required
 def users():
@@ -38,6 +32,7 @@ def users():
     return render_template('users.html', users=users, form=form)
 
 @views.route('/play')
+@active_login_required
 def play():
     return render_template('game.html')
 
@@ -45,8 +40,11 @@ def play():
 @active_login_required
 def userpage(userid):
     user = User.query.get(userid)
-    game_count = 69
-    high_score = 2137
+
+    game_count = Game.query.filter_by(user_id=userid).count()
+
+    highest_score = Game.query.filter_by(user_id=userid).order_by(Game.score.desc()).first()
+    high_score = highest_score.score if highest_score else 0
 
     if user is None or not user.is_confirmed:
         abort(404)
@@ -64,3 +62,25 @@ def userpage(userid):
     
     print("testestst")
     return render_template('userpage.html', user=user, high_score=high_score, game_count=game_count, comments=user_comments, form = comment_form)
+
+
+AUTH_TOKEN = "gordini_wysyla_wynik"
+@views.route('/receive_score', methods=['POST'])
+@active_login_required
+
+def receive_score():
+    try:
+        auth_token = request.headers.get('Authorization')
+        if auth_token != AUTH_TOKEN:
+            abort(401)
+
+        score = request.form.get('score')
+        userid = current_user.id 
+
+        new_game = Game(user_id=int(userid), score=int(score))
+        db.session.add(new_game)
+        db.session.commit()
+
+        return jsonify({"status": "success"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
