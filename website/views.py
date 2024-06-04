@@ -84,3 +84,4 @@ def receive_score():
         return jsonify({"status": "success"}), 200
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
