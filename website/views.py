@@ -53,13 +53,12 @@ def userpage(userid):
         
     user_comments = Comment.query.filter_by(user_to_id=user.id)
     comment_form = CommentForm()
-    if request.method == 'POST':
-        print("testestdf1")
+   
     if request.method == 'POST' and comment_form.validate():
-        if request.method == 'POST':
-            print("testestdf")
-        print(comment_form.comment.data, datetime.now(), "fdsfdafs")
-        new_comment = Comment(body=comment_form.comment.data, timestamp=datetime.now(), user_to_id=user.id, user_from_id=current_user.id)
+        print(comment_form.comment.data, datetime.now(), user.id, current_user.id)
+        new_comment = Comment(body=comment_form.comment.data, timestamp=datetime.now(), 
+                user_to_id=user.id, user_from_id=current_user.id, user_from_name=current_user.name)
+        print(new_comment)
         db.session.add(new_comment)
         db.session.commit()
     

@@ -5,7 +5,7 @@
 <div class="profile-box">
     <div class="profile-element-data">
         <div class="profile-icon-box">
-            <img src="../static/profile_pics/{{user.profile_picture}}"
+            <img src="../static/profile_pics/{{user.profile_picture}}">
         </div>
         <div class="profile-data-box">
             <div class="profile-username">
@@ -39,17 +39,18 @@
                 {{ game_count }}
             </div>
         </div>
-        {% for comment in comments%}
-            <div>
-                <a>{{comment.id}}</a>
-            </div>
-        {% endfor %}
         <form role="form" method="POST" action="">
             {{render_field(form.comment)}}
             <button class="">
                 POST COMMENT
             </button>
         </form>
+        {% for comment in comments %}
+            <div>
+                <a>{{comment.user_from_name}}:</a>
+                <a>{{comment.body}}</a>
+            </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

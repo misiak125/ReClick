@@ -10,7 +10,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True) 
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(300))
-    name = db.Column(db.String(1000))
+    name = db.Column(db.String(100))
     
     created_on = db.Column(db.DateTime, nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
@@ -36,16 +36,18 @@ class User(db.Model, UserMixin):
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    body = db.Column(db.String(300))
-    timestamp = db.Column(db.DateTime)
-    user_to_id = db.Column(db.Integer)
-    user_from_id = db.Column(db.Integer)
+    body = db.Column(db.String(300), nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False)
+    user_to_id = db.Column(db.Integer, nullable=False)
+    user_from_id = db.Column(db.Integer, nullable=False)
+    user_from_name = db.Column(db.String(100), nullable=False)
 
-    def __init__ (self, body, timestamp, user_to_id, user_from_id):
-        body=body
-        timestamp = timestamp
-        user_to_id = user_to_id
-        user_from_id = user_from_id
+    def __init__ (self, body, timestamp, user_to_id, user_from_id, user_from_name):
+        self.body=body
+        self.timestamp = timestamp
+        self.user_to_id = user_to_id
+        self.user_from_id = user_from_id
+        self.user_from_name = user_from_name
 
     def __repr__(self):
         return '<Post %r>' % (self.body)
