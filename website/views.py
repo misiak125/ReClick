@@ -47,13 +47,19 @@ def userpage(userid):
         
     return render_template('userpage.html', user=user, high_score=high_score, game_count=game_count)
 
+AUTH_TOKEN = "gordini_wysyla_wynik"
 @views.route('/receive_score', methods=['POST'])
 @active_login_required
+
 def receive_score():
     try:
+        auth_token = request.headers.get('Authorization')
+        if auth_token != AUTH_TOKEN:
+            abort(401)
+
         score = request.form.get('score')
-        userid = current_user.id
-        
+        userid = current_user.id 
+
         new_game = Game(user_id=int(userid), score=int(score))
         db.session.add(new_game)
         db.session.commit()
