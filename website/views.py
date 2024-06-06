@@ -110,6 +110,7 @@ def leaderboard():
 
     #for user_id, user_name, max_score in games_list:
     #    print(f'User ID: {user_id}, User Name: {user_name}, Max Score: {max_score}')
+    
 
     return render_template('leaderboard.html', list=games_list)
 
