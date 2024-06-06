@@ -88,14 +88,16 @@ def receive_score():
 @views.route('/leaderboard')
 def leaderboard():
     
-    subquery = db.session.query(
-        Game.id,
-        func.max(Game.score).label('max_score')
-    ).group_by(Game.user_id).subquery()
+    lista_gier = User.query.join(Game, Game.user_id == User.id)
 
-    top_scores = db.session.query(
-        User,
-        subquery.c.max_score
-    ).join(subquery, User.id == subquery.c.id).all()
+    print(lista_gier)
 
-    return render_template('leaderboard.html', list=top_scores)
+    return render_template('leaderboard.html')
+
+'''
+@views.route('/addgame')
+def addgame():
+    new_game = Game(1, 9)
+    db.session.add(new_game)
+    db.session.commit()
+'''
