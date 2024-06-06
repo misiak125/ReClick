@@ -12,12 +12,14 @@ def create_app():
     app=Flask(__name__)
     app.config['SECRET_KEY']='gordojestpiekny'
     app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{DB_NAME}"
+    '''
     app.config['MAIL_SERVER'] = "smtp-mail.outlook.com"
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USERNAME'] = "re.click@outlook.com"
     app.config['MAIL_PASSWORD'] = ""
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
+    '''
     app.config['SECURITY_PASSWORD_SALT'] = "devdev"
 
     mail=Mail(app)

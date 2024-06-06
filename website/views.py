@@ -9,6 +9,7 @@ from .forms import SearchUserForm
 from datetime import datetime
 from .models import Comment
 from .forms import CommentForm
+from sqlalchemy.sql import func
 
 views=Blueprint('views', __name__)
 usersbp=Blueprint('users', __name__)
@@ -67,7 +68,6 @@ def userpage(userid):
 AUTH_TOKEN = "gordini_wysyla_wynik"
 @views.route('/receive_score', methods=['POST'])
 @active_login_required
-
 def receive_score():
     try:
         auth_token = request.headers.get('Authorization')
@@ -85,3 +85,17 @@ def receive_score():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+@views.route('/leaderboard')
+def leaderboard():
+    
+    subquery = db.session.query(
+        Game.user_id,
+        func.max(Game.score).label('max_score')
+    ).group_by(Game.user_id).subquery()
+
+    top_scores = db.session.query(
+        User,
+        subquery.c.max_score
+    ).join(subquery, User.id == subquery.c.user_id).all()
+
+    return render_template('leaderboard.html', list=top_scores)
