@@ -105,7 +105,7 @@ def leaderboard():
             subquery.c.max_score
         )
         .join(subquery, User.id == subquery.c.user_id)
-        .all()
+        .order_by(subquery.c.max_score.desc()).all()
     )
 
     #for user_id, user_name, max_score in games_list:
