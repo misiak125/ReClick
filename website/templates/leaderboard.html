@@ -17,13 +17,12 @@
             </tr>
         </thead>
         <tbody>
-            <!--{% for score in list %}
+            {% for user_id, user_name, max_score in list %}
             <tr>
-                <td><a class="users-profilelink" href="{{ url_for('views.userpage', userid=score.id) }}"></a>{{ score.username }}</td>
-                <td>{{ user.email }}</td> 
-                <td>{{ score.max_score }}</a></td>
+                <td><a class="users-profilelink" href="{{ url_for('views.userpage', userid=user_id) }}">{{ user_name }}</a></td>
+                <td>{{ max_score }}</a></td>
             </tr>
-            {% endfor %}-->
+            {% endfor %}<!---->
         </tbody>
     </table>
 </div>

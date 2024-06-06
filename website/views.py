@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, abort, jsonify
+from flask import Blueprint, render_template, request, abort, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 from .models import User, Game
 from . import db
@@ -9,6 +9,7 @@ from .forms import SearchUserForm
 from datetime import datetime
 from .models import Comment
 from .forms import CommentForm
+from flask_sqlalchemy import SQLAlchemy 
 from sqlalchemy.sql import func
 
 views=Blueprint('views', __name__)
@@ -88,16 +89,35 @@ def receive_score():
 @views.route('/leaderboard')
 def leaderboard():
     
-    lista_gier = User.query.join(Game, Game.user_id == User.id)
+    subquery = (
+        db.session.query(
+            Game.user_id,
+            func.max(Game.score).label('max_score')
+        )
+        .group_by(Game.user_id)
+        .subquery()
+    )
 
-    print(lista_gier)
+    games_list = (
+        db.session.query(
+            User.id,
+            User.name,
+            subquery.c.max_score
+        )
+        .join(subquery, User.id == subquery.c.user_id)
+        .all()
+    )
 
-    return render_template('leaderboard.html')
+    #for user_id, user_name, max_score in games_list:
+    #    print(f'User ID: {user_id}, User Name: {user_name}, Max Score: {max_score}')
+
+    return render_template('leaderboard.html', list=games_list)
 
 '''
 @views.route('/addgame')
 def addgame():
-    new_game = Game(1, 9)
+    new_game = Game(2, 5)
     db.session.add(new_game)
     db.session.commit()
+    return redirect(url_for('views.index'))
 '''
