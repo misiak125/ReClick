@@ -89,13 +89,13 @@ def receive_score():
 def leaderboard():
     
     subquery = db.session.query(
-        Game.user_id,
+        Game.id,
         func.max(Game.score).label('max_score')
     ).group_by(Game.user_id).subquery()
 
     top_scores = db.session.query(
         User,
         subquery.c.max_score
-    ).join(subquery, User.id == subquery.c.user_id).all()
+    ).join(subquery, User.id == subquery.c.id).all()
 
     return render_template('leaderboard.html', list=top_scores)
