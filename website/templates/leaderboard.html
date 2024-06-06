@@ -1,18 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h1>Leaderboard</h1>
-    <table>
-        <tr>
-            <th>User</th>
-            <th>Highest Score</th>
-        </tr>
-        {% for user, highest_score in top_scores %}
+<div class="users-box">
+    <div class="users-title">
+        LEADERBOARD
+    </div>
+    <div class="users-line"></div>
+
+    <table class="users-table">
+        <thead class="users-table-head">
             <tr>
-                <td>{{ user.username }}</td>
-                <td>{{ highest_score }}</td>
+                <th>Username</th>
+                <!-- <th>Email</th> -->
+                <th>Top Score</th>
             </tr>
-        {% endfor %}
+        </thead>
+        <tbody>
+            {% for user_id, user_name, max_score in list %}
+            <tr>
+                <td><a class="users-profilelink" href="{{ url_for('views.userpage', userid=user_id) }}">{{ user_name }}</a></td>
+                <td>{{ max_score }}</a></td>
+            </tr>
+            {% endfor %}<!---->
+        </tbody>
     </table>
+</div>
 
 {% endblock %}

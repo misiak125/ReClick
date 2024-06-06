@@ -80,11 +80,12 @@ def signup():
         db.session.commit()
         
         #email confirmation
+        
+        #!!!! zrezygnowalismy z funkcji potwierdzania maila, bo juz drugi raz nam zbanowali konto :(
+        #!!!! ale generalnie dziala :))
         '''
-        print("test1")
         token = generate_token(new_user.email)
         confirm_url = url_for("auth.confirm_email", token=token, _external=True)
-        print("test2")
         html = render_template("confirm_email.html", confirm_url=confirm_url)
         subject = "Please confirm your email"
         send_confirm_email(new_user.email, subject, html)
@@ -110,7 +111,7 @@ def logout():
     logout_user()
     return redirect(url_for('views.index'))
 
-
+'''
 @auth.route("/confirm/<token>")
 def confirm_email(token):
     if current_user.is_confirmed:
@@ -149,3 +150,5 @@ def resend_confirmation():
     send_confirm_email(current_user.email, subject, html)
     flash("A new confirmation email has been sent.", "happy")
     return redirect(url_for("auth.inactive"))
+
+'''
