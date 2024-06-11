@@ -42,7 +42,7 @@ class User(db.Model, UserMixin):
 
         self.email = email
         self.name = name
-        self.password = generate_password_hash(password, method='scrypt')
+        self.password = generate_password_hash(password)
         self.created_on = datetime.datetime.now()
         self.is_admin = is_admin            
         self.is_banned = is_banned

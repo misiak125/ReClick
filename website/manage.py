@@ -27,7 +27,7 @@ def create_admin():
         print("Passwords don't match")
         return 1
     try:
-        user = User(email, name, password, is_admin=True, is_confirmed=True, activated_on=datetime.datetime.now())
+        user = User(email, name, password, is_admin=True, is_banned=False, is_confirmed=True, activated_on=datetime.datetime.now(), profile_picture=None)
         db.session.add(user)
         db.session.commit()
         print(f"Admin {name} with email {email} created successfully.")
